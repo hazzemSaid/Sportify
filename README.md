@@ -1,2 +1,4 @@
 # Sportify
-This app to final project for Sportify
+This app to final project for (وزارة الاتصالات وتكنولوجيا المعلومات) 
+
+# Sportify
