@@ -4,20 +4,20 @@ This app is a final project for the Ministry of Communications and Information T
 
 ## Screenshots
 
-![Onboarding Screen](assets/images/onboarding1_screen.png)  
-_Onboarding Screen_
+<img src="assets/images/onboarding1_screen.png" width="300" alt="Onboarding Screen"/>  
+*Onboarding Screen*
 
-![Onboarding Screen](assets/images/onboarding2_screen.png)  
-_Onboarding Screen_
+<img src="assets/images/onboarding2_screen.png" width="300" alt="Onboarding Screen"/>  
+*Onboarding Screen*
 
-![Onboarding Screen](assets/images/onboarding3_screen.png)  
-_Onboarding Screen_
+<img src="assets/images/onboarding3_screen.png" width="300" alt="Onboarding Screen"/>  
+*Onboarding Screen*
 
-![Login Screen](assets/images/login.png)  
-_Login Screen_
+<img src="assets/images/login.png" width="300" alt="Login Screen"/>  
+*Login Screen*
 
-![Profile Screen](assets/images/register.png)  
-_Register Screen_
+<img src="assets/images/register.png" width="300" alt="Register Screen"/>  
+*Register Screen*
 
 ## Features
 
@@ -25,4 +25,5 @@ _Register Screen_
 
 1. Clone the repository:
 
+   ```bash
    git clone https://github.com/yourusername/sportify.git
