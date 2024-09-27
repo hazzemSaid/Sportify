@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
           gifPath: 'assets/images/Sportify.gif',
           gifWidth: 269,
           gifHeight: 474,
-          nextScreen: const HomeScreen(), // تم تغيير الشاشة التالية
+          nextScreen: const HomeScreen(),
           duration: const Duration(milliseconds: 3515),
         ),
       ),
