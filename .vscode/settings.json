@@ -1,6 +1,5 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
-  "cSpell.words": [
-    "Matchesbydate"
-  ]
+  "cSpell.words": ["Matchesbydate"],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

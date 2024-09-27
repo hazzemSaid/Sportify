@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "926102685964",
+    "project_id": "sportify-f302a",
+    "storage_bucket": "sportify-f302a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926102685964:android:4ddd697da00de6abefa129",
+        "android_client_info": {
+          "package_name": "com.example.sportify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Ibs9TUw0pDOsUUlnvFbPJacEp6uWpLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
