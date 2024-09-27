@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sportify/Presentation/ui/screens/login_screen.dart';
 import 'package:sportify/Presentation/ui/screens/onboarding.dart';
+import 'package:sportify/Presentation/ui/screens/register_screen.dart';
 import 'package:sportify/Presentation/ui/screens/splash_screen.dart';
 
 class AppRoutes {
@@ -14,6 +16,10 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case onBoarding:
         return MaterialPageRoute(builder: (_) => const OnboardingPage());
+      case loginScreen:
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
+      case registerScreen:
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

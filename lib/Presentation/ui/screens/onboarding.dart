@@ -83,7 +83,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void _completeOnboarding() {
-    Navigator.pushReplacementNamed(context, '/registerScreen');
+    Navigator.pushReplacementNamed(context, '/loginScreen');
   }
 }
 
