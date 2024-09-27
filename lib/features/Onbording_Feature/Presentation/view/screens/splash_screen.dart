@@ -1,6 +1,6 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:sportify/Presentation/ui/screens/onboarding.dart';
+import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sportify/Presentation/ui/screens/onboarding.dart';
-import 'package:sportify/Presentation/ui/screens/splash_screen.dart';
+import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
+import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
 
 class AppRoutes {
   static const String splash = '/';
