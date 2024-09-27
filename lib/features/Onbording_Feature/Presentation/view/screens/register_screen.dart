@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:sportify/Presentation/routes/routes.dart';
-import 'package:sportify/Presentation/ui/widgets/custom_button.dart';
+import 'package:sportify/core/utils/routes/routes.dart';
+import 'package:sportify/features/Onbording_Feature/Presentation/view/widgets/custom_button.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

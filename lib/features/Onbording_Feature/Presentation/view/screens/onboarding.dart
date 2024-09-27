@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // تأكد من استيراد get
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:sportify/Presentation/ui/widgets/custom_button.dart';
+import 'package:sportify/features/Onbording_Feature/Presentation/view/widgets/custom_button.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});

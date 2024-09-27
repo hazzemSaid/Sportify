@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sportify/Presentation/routes/routes.dart';
-import 'package:sportify/Presentation/ui/screens/splash_screen.dart';
+import 'package:sportify/core/utils/routes/routes.dart';
+import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
