@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 const SizedBox(height: 50),
                 const Text(
-                  "Welcome Back",
+                  "Welcome To Sportify",
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
@@ -56,8 +56,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Please login to enjoy full feature",
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  "Create an account to explore amazing feature",
+                  style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
                 const SizedBox(height: 35),
                 Form(
