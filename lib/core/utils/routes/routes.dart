@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/login_screen.dart';
+import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_screen.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
-import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/register_screen.dart';
+import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
 
 class AppRoutes {
