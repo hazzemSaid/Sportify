@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   another_flutter_splash_screen: ^1.2.1
+  bloc: ^8.1.4
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   either_dart: ^1.0.0
@@ -37,6 +38,7 @@ dependencies:
   firebase_core: ^3.6.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.6
   font_awesome_flutter: ^10.7.0
   get: ^4.6.6
   google_fonts: ^6.2.1

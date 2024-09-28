@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
+import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildPasswordField.dart';
+import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildSocialButton.dart';
+import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildTextField.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/widgets/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -83,14 +86,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 15),
-                      _buildTextField(
+                      buildTextField(
                         controller: email,
                         label: 'Email',
                         hint: 'Enter Email',
                         icon: Icons.email_outlined,
                       ),
                       const SizedBox(height: 20),
-                      _buildPasswordField(),
+                      buildPasswordField(
+                        password: password,
+                        isObscured: _isObscured,
+                        onpressedF: () {
+                          setState(() {
+                            _isObscured = !_isObscured;
+                          });
+                        },
+                      ),
                       const SizedBox(height: 15),
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -140,11 +151,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildSocialButton(FontAwesomeIcons.google, () {
+                          buildSocialButton(FontAwesomeIcons.google, () {
                             // Implement Google login
                           }),
                           const SizedBox(width: 30),
-                          _buildSocialButton(Icons.facebook, () {
+                          buildSocialButton(Icons.facebook, () {
                             // Implement Facebook login
                           }),
                         ],
@@ -178,98 +189,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required String hint,
-    required IconData icon,
-  }) {
-    return TextFormField(
-      controller: controller,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter $label';
-        }
-        return null;
-      },
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        label: Text(label, style: const TextStyle(color: Colors.grey)),
-        hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey[400]),
-        prefixIcon: Icon(icon, size: 28, color: Colors.grey),
-        filled: true,
-        fillColor: const Color(0xff3F3F3F),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.black12),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xff2C2C2C)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPasswordField() {
-    return TextFormField(
-      controller: password,
-      obscureText: _isObscured,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter Password';
-        }
-        return null;
-      },
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        label: const Text('Password', style: TextStyle(color: Colors.grey)),
-        hintText: 'Enter Password',
-        hintStyle: TextStyle(color: Colors.grey[400]),
-        prefixIcon:
-            const Icon(Icons.lock_outline, size: 28, color: Colors.grey),
-        filled: true,
-        fillColor: const Color(0xff3F3F3F),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.black12),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xff2C2C2C)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        suffixIcon: IconButton(
-          icon: Icon(
-            _isObscured ? Icons.visibility_off : Icons.visibility,
-            color: Colors.grey,
-          ),
-          onPressed: () {
-            setState(() {
-              _isObscured = !_isObscured;
-            });
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSocialButton(IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 65,
-        width: 65,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: const Color(0xff353535),
-          border: Border.all(width: 0.3),
-        ),
-        child: Icon(icon, size: 35, color: Colors.blue[800]),
       ),
     );
   }
