@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,24 @@ class _LoginScreenState extends State<LoginScreen> {
     email.dispose();
     password.dispose();
     super.dispose();
+  }
+
+  // login function for firebase auth
+  login() async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+      print('User login successfully');
+      Get.toNamed(AppRoutes.onBoarding);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -93,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       CustomButton(
                         onPressed: () {
                           if (_formLoginKey.currentState!.validate()) {
-                            // Implement your login logic here
+                            login();
                           }
                         },
                         text: "Login",
