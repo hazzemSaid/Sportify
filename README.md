@@ -4,9 +4,9 @@ This app is a final project for the Ministry of Communications and Information T
 
 ## Screenshots
 
-*Onboarding Screen1*
-<img src="assets/images/onboarding1_screen.png" width="300" alt="Onboarding Screen"/>  
 
+<img src="assets/images/onboarding1_screen.png" width="300" alt="Onboarding Screen"/>  
+*Onboarding Screen1*
 *Onboarding Screen2*
 <img src="assets/images/onboarding2_screen.png" width="300" alt="Onboarding Screen"/>  
 
