@@ -1,27 +1,56 @@
+
 # Sportify
 
-This app is a final project for the Ministry of Communications and Information Technology.
+**Sportify** is a mobile application developed as a final project for the Ministry of Communications and Information Technology. It aims to enhance user engagement in sports activities through an intuitive and seamless interface.
 
 ## Screenshots
 
-*Onboarding Screen1*
-<img src="assets/images/onboarding1_screen.png" width="300" alt="Onboarding Screen"/>  
+### Onboarding Screens
+*Onboarding Screen 1*  
+![Onboarding Screen 1](assets/images/onboarding1_screen.png)  
 
-*Onboarding Screen2*
-<img src="assets/images/onboarding2_screen.png" width="300" alt="Onboarding Screen"/>  
+*Onboarding Screen 2*  
+![Onboarding Screen 2](assets/images/onboarding2_screen.png)  
 
-*Onboarding Screen3*
-<img src="assets/images/onboarding3_screen.png" width="300" alt="Onboarding Screen"/>  
+*Onboarding Screen 3*  
+![Onboarding Screen 3](assets/images/onboarding3_screen.png)  
 
-*Login Screen*
-<img src="assets/images/login.png" width="300" alt="Login Screen"/>  
+### Authentication Screens
+*Login Screen*  
+![Login Screen](assets/images/login.png)  
 
-*Register Screen*
-<img src="assets/images/register.png" width="300" alt="Register Screen"/>  
+*Register Screen*  
+![Register Screen](assets/images/register.png)  
 
 ## Features
+
+- User-friendly onboarding experience
+- Secure login and registration
+- [Add more features here]
 
 ## Installation
 
 1. Clone the repository:
+   ```bash
    git clone https://github.com/yourusername/sportify.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd sportify
+   ```
+3. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+4. Run the application:
+   ```bash
+   flutter run
+   ```
+
+## Contributing
+
+[Add guidelines for contributing to the project here]
+
+## License
+
+[Add licensing information here]
