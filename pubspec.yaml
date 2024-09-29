@@ -30,6 +30,7 @@ environment:
 dependencies:
   another_flutter_splash_screen: ^1.2.1
   bloc: ^8.1.4
+  carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   either_dart: ^1.0.0

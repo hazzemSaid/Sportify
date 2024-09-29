@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.back();
-                      Get.toNamed(AppRoutes.loginScreen);
+                      Get.toNamed(AppRoutes.homeScreen);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
