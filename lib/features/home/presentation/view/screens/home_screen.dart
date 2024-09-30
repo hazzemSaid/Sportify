@@ -40,10 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
               subtitle: 'See All',
             ),
             const SizedBox(height: 8),
-            MatchDayCard(
+            const MatchDayCard(
               numberOfCards: 2,
             ),
             const SizedBox(height: 20),
+            const TitleSection(
+              title: 'Match Highlight',
+              subtitle: 'See All',
+            ),
           ],
         ),
       ),

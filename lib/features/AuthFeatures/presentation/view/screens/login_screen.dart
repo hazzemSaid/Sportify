@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               backgroundColor: Colors.green,
             ),
           );
-          Get.toNamed(AppRoutes.homeScreen);
+          Get.toNamed(AppRoutes.bottomNavBar);
         } else if (state is SginInFailed) {
           Get.snackbar('Error', state.error ?? 'An error occurred',
               snackPosition: SnackPosition.TOP,

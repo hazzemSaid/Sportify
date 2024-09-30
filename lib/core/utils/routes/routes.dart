@@ -4,6 +4,7 @@ import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_s
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
+import 'package:sportify/features/home/presentation/view/widgets/bottom_nav_bar.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -11,6 +12,7 @@ class AppRoutes {
   static const String loginScreen = '/loginScreen';
   static const String registerScreen = '/registerScreen';
   static const String homeScreen = '/homeScreen';
+  static const String bottomNavBar = '/bottomNavBar';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -24,6 +26,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case bottomNavBar:
+        return MaterialPageRoute(builder: (_) => const BottomNavBar());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
