@@ -62,6 +62,7 @@ class MatchDayCard extends StatelessWidget {
         const Text(
           'VS',
           style: TextStyle(
+            fontWeight: FontWeight.bold,
             color: Colors.white,
             fontSize: 14,
           ),
@@ -79,6 +80,7 @@ class MatchDayCard extends StatelessWidget {
         Text(
           clubName,
           style: const TextStyle(
+            fontWeight: FontWeight.bold,
             color: Colors.white,
             fontSize: 12,
           ),
@@ -94,6 +96,7 @@ class MatchDayCard extends StatelessWidget {
         Text(
           'Today - 12:00 PM',
           style: TextStyle(
+            fontWeight: FontWeight.bold,
             color: Colors.white,
             fontSize: 12,
           ),

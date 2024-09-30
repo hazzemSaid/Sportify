@@ -49,19 +49,20 @@ class MatchSchedules extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xff2C2C2C),
       body: Container(
-          width: double.infinity,
-          color: const Color(0xff2C2C2C),
-          child: CarouselSlider(
-            options: CarouselOptions(
-              aspectRatio: 2.0,
-              enlargeCenterPage: true,
-              enableInfiniteScroll: false,
-              initialPage: 2,
-              autoPlay: true,
-            ),
-            items: imageSliders,
-          )),
+        width: double.infinity,
+        child: CarouselSlider(
+          options: CarouselOptions(
+            aspectRatio: 2.0,
+            enlargeCenterPage: true,
+            enableInfiniteScroll: false,
+            initialPage: 1,
+            autoPlay: true,
+          ),
+          items: imageSliders,
+        ),
+      ),
     );
   }
 }

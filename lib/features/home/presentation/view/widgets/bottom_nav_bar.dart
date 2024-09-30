@@ -17,9 +17,9 @@ class BottomNavBar extends StatelessWidget {
               backgroundColor: const Color(0xff2C2C2C),
               indicatorColor: Colors.transparent,
               labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-              labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>(
+              labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
                 (states) {
-                  if (states.contains(MaterialState.selected)) {
+                  if (states.contains(WidgetState.selected)) {
                     return const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-    HomeScreen(),
+    const HomeScreen(),
     Container(
       color: Colors.green,
     ),
