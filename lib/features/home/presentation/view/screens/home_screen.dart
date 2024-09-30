@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sportify/core/utils/constrains/ids.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
 import 'package:sportify/features/home/presentation/view/widgets/league_table.dart';
 import 'package:sportify/features/home/presentation/view/widgets/match_day_card.dart';
 import 'package:sportify/features/home/presentation/view/widgets/match_schedules.dart';
 import 'package:sportify/features/home/presentation/view/widgets/match_week.dart';
 import 'package:sportify/features/home/presentation/view/widgets/title_section.dart';
+import 'package:sportify/features/home/presentation/viewmodel/standing_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Serie A',
     'Ligue 1',
   ];
-
+//map
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,15 +65,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     value: selectedLeague,
                     underline: SizedBox(),
                     iconEnabledColor: Colors.white,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                     onChanged: (String? newValue) {
-                      setState(() {
-                        selectedLeague = newValue!; // تحديث الدوري المحدد
-                      });
+                      if (newValue != null) {
+                        BlocProvider.of<StandingCubit>(context)
+                            .getStandingByLeague(
+                                league:
+                                    FootballData.leagueMap[newValue] ?? 'PL',
+                                season: '2024',
+                                matchDay: 6);
+                      } else {
+                        BlocProvider.of<StandingCubit>(context)
+                            .getStandingByLeague(
+                                league: 'PL', season: '2024', matchDay: 6);
+                      }
                     },
                     items:
                         leagues.map<DropdownMenuItem<String>>((String league) {
@@ -84,9 +96,41 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              height: 400, // ارتفاع ثابت لجدول الدوري
-              child: LeagueTable(),
+            BlocBuilder<StandingCubit, StandingState>(
+              builder: (context, state) {
+                if (state is StandingInitial) {
+                  return Container(
+                    height: 400, // ارتفاع ثابت لجدول الدوري
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.red,
+                      ),
+                    ),
+                  );
+                } else if (state is StandingLoaded) {
+                  return Container(
+                    height: 400, // ارتفاع ثابت لجدول الدوري
+                    child: LeagueTable(teams: state.teams),
+                  );
+                } else if (state is StandingError) {
+                  return Container(
+                    height: 400, // ارتفاع ثابت لجدول الدوري
+                    child: Center(
+                      child: Text(state.message),
+                    ),
+                  );
+                }
+                return Container(
+                  height: 400,
+                  width: double.infinity,
+                  // ارتفاع ثابت لجدول الدوري
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.red,
+                    ),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 20),
           ],

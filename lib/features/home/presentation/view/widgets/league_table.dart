@@ -1,231 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sportify/features/home/data/model/Standing_League/standings_league/table.dart';
 
 class LeagueTable extends StatelessWidget {
-  final List<Map<String, dynamic>> teams = [
-    {
-      "rank": 1,
-      "team": "Chelsea",
-      "p": 11,
-      "w": 8,
-      "d": 2,
-      "l": 1,
-      "gfGa": "27/4",
-      "gd": "+23",
-      "pts": 26
-    },
-    {
-      "rank": 2,
-      "team": "Man. City",
-      "p": 11,
-      "w": 7,
-      "d": 2,
-      "l": 2,
-      "gfGa": "22/6",
-      "gd": "+16",
-      "pts": 23
-    },
-    {
-      "rank": 3,
-      "team": "West Ham",
-      "p": 11,
-      "w": 7,
-      "d": 2,
-      "l": 2,
-      "gfGa": "23/13",
-      "gd": "+10",
-      "pts": 23
-    },
-    {
-      "rank": 4,
-      "team": "Liverpool",
-      "p": 11,
-      "w": 6,
-      "d": 4,
-      "l": 1,
-      "gfGa": "31/11",
-      "gd": "+20",
-      "pts": 22
-    },
-    {
-      "rank": 5,
-      "team": "Arsenal",
-      "p": 11,
-      "w": 6,
-      "d": 2,
-      "l": 3,
-      "gfGa": "13/13",
-      "gd": "0",
-      "pts": 20
-    },
-    {
-      "rank": 6,
-      "team": "Man. United",
-      "p": 11,
-      "w": 5,
-      "d": 2,
-      "l": 4,
-      "gfGa": "19/17",
-      "gd": "+2",
-      "pts": 17
-    },
-    {
-      "rank": 7,
-      "team": "Brighton",
-      "p": 11,
-      "w": 4,
-      "d": 5,
-      "l": 2,
-      "gfGa": "12/12",
-      "gd": "0",
-      "pts": 17
-    },
-    {
-      "rank": 8,
-      "team": "Wolverhampton",
-      "p": 11,
-      "w": 5,
-      "d": 1,
-      "l": 5,
-      "gfGa": "11/12",
-      "gd": "-1",
-      "pts": 16
-    },
-    {
-      "rank": 9,
-      "team": "Leicester City",
-      "p": 11,
-      "w": 4,
-      "d": 4,
-      "l": 3,
-      "gfGa": "18/20",
-      "gd": "-2",
-      "pts": 16
-    },
-    {
-      "rank": 10,
-      "team": "Everton",
-      "p": 11,
-      "w": 4,
-      "d": 3,
-      "l": 4,
-      "gfGa": "15/15",
-      "gd": "0",
-      "pts": 15
-    },
-    {
-      "rank": 11,
-      "team": "Aston Villa",
-      "p": 11,
-      "w": 3,
-      "d": 5,
-      "l": 3,
-      "gfGa": "13/14",
-      "gd": "-1",
-      "pts": 14
-    },
-    {
-      "rank": 12,
-      "team": "Crystal Palace",
-      "p": 11,
-      "w": 3,
-      "d": 5,
-      "l": 3,
-      "gfGa": "11/15",
-      "gd": "-4",
-      "pts": 14
-    },
-    {
-      "rank": 13,
-      "team": "Newcastle",
-      "p": 11,
-      "w": 3,
-      "d": 3,
-      "l": 5,
-      "gfGa": "16/19",
-      "gd": "-3",
-      "pts": 12
-    },
-    {
-      "rank": 14,
-      "team": "Southampton",
-      "p": 11,
-      "w": 2,
-      "d": 5,
-      "l": 4,
-      "gfGa": "12/17",
-      "gd": "-5",
-      "pts": 11
-    },
-    {
-      "rank": 15,
-      "team": "Burnley",
-      "p": 11,
-      "w": 2,
-      "d": 4,
-      "l": 5,
-      "gfGa": "10/20",
-      "gd": "-10",
-      "pts": 10
-    },
-    {
-      "rank": 16,
-      "team": "Fulham",
-      "p": 11,
-      "w": 2,
-      "d": 3,
-      "l": 6,
-      "gfGa": "14/25",
-      "gd": "-11",
-      "pts": 9
-    },
-    {
-      "rank": 17,
-      "team": "Brentford",
-      "p": 11,
-      "w": 1,
-      "d": 6,
-      "l": 4,
-      "gfGa": "11/17",
-      "gd": "-6",
-      "pts": 9
-    },
-    {
-      "rank": 18,
-      "team": "Nottingham Forest",
-      "p": 11,
-      "w": 2,
-      "d": 3,
-      "l": 6,
-      "gfGa": "8/20",
-      "gd": "-12",
-      "pts": 9
-    },
-    {
-      "rank": 19,
-      "team": "Sheffield United",
-      "p": 11,
-      "w": 1,
-      "d": 2,
-      "l": 8,
-      "gfGa": "9/27",
-      "gd": "-18",
-      "pts": 5
-    },
-    {
-      "rank": 20,
-      "team": "Luton Town",
-      "p": 11,
-      "w": 1,
-      "d": 2,
-      "l": 8,
-      "gfGa": "5/25",
-      "gd": "-20",
-      "pts": 5
-    },
-  ];
-
-  LeagueTable({super.key});
-
+  final List<Tables> teams;
+  LeagueTable({
+    Key? key,
+    required this.teams,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -248,7 +29,7 @@ class LeagueTable extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        flex: 1, child: Text("Team", style: headerTextStyle())),
+                        flex: 2, child: Text("Team", style: headerTextStyle())),
                     Expanded(child: Text("P", style: headerTextStyle())),
                     Expanded(child: Text("W", style: headerTextStyle())),
                     Expanded(child: Text("D", style: headerTextStyle())),
@@ -276,13 +57,13 @@ class LeagueTable extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              "${team["rank"]}. ",
+                              "${team.position}. ",
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 14),
                             ),
                             Expanded(
                               child: Text(
-                                team["team"],
+                                team.team?.name ?? "",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 13,
@@ -296,37 +77,37 @@ class LeagueTable extends StatelessWidget {
                       ),
                       Expanded(
                           child: Center(
-                              child: Text(team["p"].toString(),
+                              child: Text("${team.playedGames}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 14)))),
                       Expanded(
                           child: Center(
-                              child: Text(team["w"].toString(),
+                              child: Text("${team.won}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 14)))),
                       Expanded(
                           child: Center(
-                              child: Text(team["d"].toString(),
+                              child: Text("${team.draw}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 14)))),
                       Expanded(
                           child: Center(
-                              child: Text(team["l"].toString(),
+                              child: Text("${team.lost}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 14)))),
                       Expanded(
                           child: Center(
-                              child: Text(team["gfGa"].toString(),
+                              child: Text("${team.goalDifference}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 14)))),
                       Expanded(
                           child: Center(
-                              child: Text(team["gd"].toString(),
+                              child: Text("${team.goalDifference}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 14)))),
                       Expanded(
                           child: Center(
-                              child: Text(team["pts"].toString(),
+                              child: Text("${team.points}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 14)))),
                     ],

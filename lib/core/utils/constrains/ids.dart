@@ -24,7 +24,14 @@ class FootballData {
   static const String turkishSuperLig = "TSL"; // Turkish Super Lig (Turkey)
   static const String saudiProfessionalLeague =
       "SPL"; // Saudi Professional League (Saudi Arabia)
-
+/*create a map for league*/
+  static Map<String, String> leagueMap = {
+    "Premier League": "PL",
+    "La Liga": "PD",
+    "Bundesliga": "BL1",
+    "Serie A": "SA",
+    "Ligue 1": "FL1",
+  };
   // Club IDs
   static const int manchesterCity = 65; // Manchester City
   static const int manchesterUnited = 66; // Manchester United
