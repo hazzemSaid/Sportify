@@ -40,4 +40,20 @@ class Homerepoimp implements HomeRepo {
       return Left(Failure('Something went wrong'));
     }
   }
+
+  @override
+  Either<Failure, Future<Map<String, dynamic>>> GetStandingsleague(
+      {required String league, required String season, required int matchday}) {
+    try {
+      return Right(
+        api.GetStandingsleague(
+          league: league,
+          season: season,
+          matchday: matchday,
+        ),
+      );
+    } catch (e) {
+      return Left(Failure('Something went wrong'));
+    }
+  }
 }

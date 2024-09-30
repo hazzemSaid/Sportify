@@ -22,4 +22,14 @@ class Api {
     return response.data;
     //dio transformer the json to dart object as automatically
   }
+
+  Future<Map<String, dynamic>> GetStandingsleague(
+      {required String league,
+      required String season,
+      required int matchday}) async {
+    _dio.options.headers['X-Auth-Token'] = '5dfbb5c2edc9437585893bf0b74ed63a';
+    var response = await _dio.get(
+        '$_baseUrl/competitions/$league/standings?season=$season&matchday=$matchday');
+    return response.data;
+  }
 }
