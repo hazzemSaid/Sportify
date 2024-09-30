@@ -23,7 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String errorMessage = '';
   bool _isObscured = true;
-
   @override
   void dispose() {
     email.dispose();
@@ -38,89 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SginInLoading) {
-          Get.dialog(
-            const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xff00A3B7),
-              ),
-            ),
-            barrierDismissible: false,
-          );
         } else if (state is SginInSuccess) {
-          Get.dialog(
-            AlertDialog(
-              backgroundColor: const Color(0xff2C2C2C),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              title: const Row(
-                children: [
-                  Icon(
-                    Icons.check_circle_outline,
-                    color: Colors.green,
-                    size: 30,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Registration Successful',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(
-                    "assets/images/success.gif",
-                    height: 120,
-                    width: 120,
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'You have successfully created an account!',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              actions: [
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.back();
-                      Get.toNamed(AppRoutes.homeScreen);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color(0xff00A3B7), // Button background color
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(20), // Rounded button
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 12),
-                    ),
-                    child: const Text(
-                      'OK',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Login Success'),
+              backgroundColor: Colors.green,
             ),
-            barrierDismissible:
-                false, // Prevent the dialog from closing by tapping outside
           );
+          Get.toNamed(AppRoutes.homeScreen);
         } else if (state is SginInFailed) {
           Get.snackbar('Error', state.error ?? 'An error occurred',
               snackPosition: SnackPosition.TOP,
