@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
-import 'package:sportify/features/AuthFeatures/presentation/view/widgets/match_schedules.dart';
-import 'package:sportify/features/AuthFeatures/presentation/view/widgets/match_week.dart';
+import 'package:sportify/features/home/presentation/view/widgets/match_schedules.dart';
+import 'package:sportify/features/home/presentation/view/widgets/match_week.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
