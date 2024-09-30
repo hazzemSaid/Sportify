@@ -21,8 +21,20 @@ class Homerepoimp implements HomeRepo {
       //end point for today matches->?dateFrom=2024-09-28&dateTo=2024-09-29&competitions=PL
       return Right(
         api.GetMatch_ForToday(
-          'matches?dateFrom=$today&dateTo=$tomorrow',
+          endpoint: 'matches?dateFrom=$today&dateTo=$tomorrow',
         ),
+      );
+    } catch (e) {
+      return Left(Failure('Something went wrong'));
+    }
+  }
+
+  @override
+  Either<Failure, Future<Map<String, dynamic>>> GetDetailesMatch(
+      {required int IdForMatch}) {
+    try {
+      return Right(
+        api.Getmatch_detailes(IdForMatch: IdForMatch),
       );
     } catch (e) {
       return Left(Failure('Something went wrong'));
