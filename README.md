@@ -22,6 +22,9 @@
 *Register Screen*  
 ![Register Screen](assets/images/register.png)  
 
+*Home Screen*  
+![Home Screen](assets/images/home_screen.png)  
+
 ## Features
 
 - User-friendly onboarding experience
