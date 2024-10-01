@@ -6,9 +6,15 @@
 
 ### Onboarding Screens
 
-| Onboarding Screen 1 | Onboarding Screen 2 | Onboarding Screen 3 |
-|:--------------------:|:--------------------:|:--------------------:|
-| <img src="assets/images/onboarding1_screen.png" alt="Onboarding Screen 1" width="200"/> | <img src="assets/images/onboarding2_screen.png" alt="Onboarding Screen 2" width="200"/> | <img src="assets/images/onboarding3_screen.png" alt="Onboarding Screen 3" width="200"/> |
+_Onboarding Screen 1_  
+<img src="assets/images/onboarding1_screen.png" alt="Onboarding Screen 1" width="200"/>
+
+_Onboarding Screen 2_  
+<img src="assets/images/onboarding2_screen.png" alt="Onboarding Screen 2" width="200"/>
+
+_Onboarding Screen 3_  
+<img src="assets/images/onboarding3_screen.png" alt="Onboarding Screen 3" width="200"/>
+
 
 ### Authentication Screens
 
