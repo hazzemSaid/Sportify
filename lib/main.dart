@@ -7,7 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
-import 'package:sportify/features/home/presentation/viewmodel/standing_cubit.dart';
+import 'package:sportify/features/home/presentation/viewmodel/match_day/match_day_cubit.dart';
+import 'package:sportify/features/home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
 import 'package:sportify/firebase_options.dart';
 
 import 'core/utils/api/Api.dart';
@@ -43,6 +44,17 @@ class MyApp extends StatelessWidget {
             ),
           )..getStandingByLeague(league: "PL", season: '2024', matchDay: 6),
         ),
+        BlocProvider<MatchDayCubit>(
+            create: (context) => MatchDayCubit(
+                  Homerepoimp(
+                    Api(
+                      Dio(
+                          //next we solve the injection problem by using the get_it package
+
+                          ),
+                    ),
+                  ),
+                )..getMatchesbyDate()),
       ],
       child: GetMaterialApp(
         theme: ThemeData(

@@ -7,7 +7,8 @@ import 'package:sportify/features/home/presentation/view/widgets/match_day_card.
 import 'package:sportify/features/home/presentation/view/widgets/match_schedules.dart';
 import 'package:sportify/features/home/presentation/view/widgets/match_week.dart';
 import 'package:sportify/features/home/presentation/view/widgets/title_section.dart';
-import 'package:sportify/features/home/presentation/viewmodel/standing_cubit.dart';
+import 'package:sportify/features/home/presentation/viewmodel/match_day/match_day_cubit.dart';
+import 'package:sportify/features/home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
     'Serie A',
     'Ligue 1',
   ];
-//map
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,19 +51,40 @@ class _HomeScreenState extends State<HomeScreen> {
               title: 'Match Day',
               subtitle: 'See All',
             ),
-            const MatchDayCard(
-              numberOfCards: 2,
+            BlocBuilder<MatchDayCubit, MatchDayState>(
+              builder: (context, state) {
+                if (state is MatchDayInitial) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.red,
+                    ),
+                  );
+                } else if (state is MatchDayLoaded) {
+                  return MatchDayCard(matches: state.matches ?? []);
+                } else if (state is MatchDayError) {
+                  return Center(
+                    child: Text(state.message),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.red,
+                  ),
+                );
+              },
+              //hazem@gmail.com
+              //01224661310
             ),
             const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   DropdownButton<String>(
                     dropdownColor: const Color(0xff2C2C2C),
                     value: selectedLeague,
-                    underline: SizedBox(),
+                    underline: const SizedBox(),
                     iconEnabledColor: Colors.white,
                     style: const TextStyle(
                       color: Colors.white,
@@ -83,6 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             .getStandingByLeague(
                                 league: 'PL', season: '2024', matchDay: 6);
                       }
+                      setState(() {
+                        selectedLeague = newValue;
+                      });
                     },
                     items:
                         leagues.map<DropdownMenuItem<String>>((String league) {

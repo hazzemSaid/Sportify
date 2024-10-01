@@ -1,11 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class MatchDayCard extends StatelessWidget {
-  final int numberOfCards;
+import '../../../data/model/matchesbydate/match.dart';
 
-  const MatchDayCard({
+class MatchDayCard extends StatelessWidget {
+  List<Matche> matches;
+  MatchDayCard({
     super.key,
-    required this.numberOfCards,
+    required this.matches,
   });
 
   @override
@@ -14,10 +16,9 @@ class MatchDayCard extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Row(
-          children:
-              List.generate(numberOfCards, (index) => _buildMatchCard(index)),
-        ),
+        child: Row(children: [
+          for (int i = 0; i < matches.length; i++) _buildMatchCard(i),
+        ]),
       ),
     );
   }
@@ -26,8 +27,8 @@ class MatchDayCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 15),
       child: Container(
-        height: 180,
-        width: 220,
+        height: 200,
+        width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: const Color(0xff353535),
@@ -38,11 +39,20 @@ class MatchDayCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildLeagueLogo(),
+              _buildLeagueLogo(
+                matches[index].competition!.emblem!,
+              ),
               const SizedBox(height: 25),
-              _buildClubLogos(),
+              _buildClubLogos(
+                matches[index].homeTeam!.shortName!,
+                matches[index].homeTeam!.crest!,
+                matches[index].awayTeam!.crest!,
+                matches[index].awayTeam!.shortName!,
+              ),
               const SizedBox(height: 25),
-              _buildMatchTime(),
+              _buildMatchTime(
+                matches[index].utcDate!,
+              ),
             ],
           ),
         ),
@@ -50,15 +60,26 @@ class MatchDayCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLeagueLogo() {
-    return Image.asset('assets/images/league_logo.png');
+  Widget _buildLeagueLogo(String s) {
+    return Image.network(
+      s,
+      height: 30,
+    );
   }
 
-  Widget _buildClubLogos() {
+  Widget _buildClubLogos(
+    String homeTeamName,
+    String homeTeamCrest,
+    String awayTeamCrest,
+    String awayTeamName,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildClubColumn('assets/images/club_logo1.png', 'Leeds United'),
+        _buildClubColumn(
+          homeTeamCrest,
+          homeTeamName,
+        ),
         const Text(
           'VS',
           style: TextStyle(
@@ -67,7 +88,10 @@ class MatchDayCard extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        _buildClubColumn('assets/images/club_logo2.png', 'Leeds United'),
+        _buildClubColumn(
+          awayTeamCrest,
+          awayTeamName,
+        ),
       ],
     );
   }
@@ -75,7 +99,10 @@ class MatchDayCard extends StatelessWidget {
   Widget _buildClubColumn(String logoPath, String clubName) {
     return Column(
       children: [
-        Image.asset(logoPath),
+        Image.network(
+          logoPath,
+          height: 30,
+        ),
         const SizedBox(height: 12),
         Text(
           clubName,
@@ -89,13 +116,20 @@ class MatchDayCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMatchTime() {
-    return const Row(
+  Widget _buildMatchTime(
+    String utcDate,
+  ) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Today - 12:00 PM',
-          style: TextStyle(
+          //reformat the date to show only the time
+          utcDate.split('T').last.substring(0, 5) +
+              ' UTC'
+                  '\n'
+                  //reformat the date to show only the date
+                  '${utcDate.split('T').first}',
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
             fontSize: 12,
