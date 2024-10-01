@@ -1,4 +1,3 @@
-
 # Sportify
 
 **Sportify** is a mobile application developed as a final project for the Ministry of Communications and Information Technology. It aims to enhance user engagement in sports activities through an intuitive and seamless interface.
@@ -6,24 +5,23 @@
 ## Screenshots
 
 ### Onboarding Screens
-*Onboarding Screen 1*  
-![Onboarding Screen 1](assets/images/onboarding1_screen.png)  
 
-*Onboarding Screen 2*  
-![Onboarding Screen 2](assets/images/onboarding2_screen.png)  
+_Onboarding Screen 1_  
+![Onboarding Screen 1](assets/images/onboarding1_screen.png)
 
-*Onboarding Screen 3*  
-![Onboarding Screen 3](assets/images/onboarding3_screen.png)  
+_Onboarding Screen 2_  
+![Onboarding Screen 2](assets/images/onboarding2_screen.png)
+
+_Onboarding Screen 3_  
+![Onboarding Screen 3](assets/images/onboarding3_screen.png)
 
 ### Authentication Screens
-*Login Screen*  
-![Login Screen](assets/images/login.png)  
 
-*Register Screen*  
-![Register Screen](assets/images/register.png)  
+_Login Screen_  
+![Login Screen](assets/images/login&register.png)
 
-*Home Screen*  
-![Home Screen](assets/images/home_screen.png)  
+_Home Screen_  
+![Home Screen](assets/images/home_screen.png)
 
 ## Features
 
