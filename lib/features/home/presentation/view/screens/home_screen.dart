@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, state) {
                 if (state is StandingInitial) {
                   return Container(
-                    height: 400, // ارتفاع ثابت لجدول الدوري
+                    height: 400,
                     child: const Center(
                       child: CircularProgressIndicator(
                         color: Colors.red,
@@ -133,12 +133,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 } else if (state is StandingLoaded) {
                   return Container(
-                    height: 400, // ارتفاع ثابت لجدول الدوري
+                    height: 400,
                     child: LeagueTable(teams: state.teams),
                   );
                 } else if (state is StandingError) {
                   return Container(
-                    height: 400, // ارتفاع ثابت لجدول الدوري
+                    height: 400,
                     child: Center(
                       child: Text(state.message),
                     ),
@@ -147,7 +147,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container(
                   height: 400,
                   width: double.infinity,
-                  // ارتفاع ثابت لجدول الدوري
                   child: const Center(
                     child: CircularProgressIndicator(
                       color: Colors.red,

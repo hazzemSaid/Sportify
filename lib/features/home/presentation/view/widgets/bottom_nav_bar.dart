@@ -51,9 +51,10 @@ class BottomNavBar extends StatelessWidget {
                 label: 'Explore',
               ),
               NavigationDestination(
-                icon: Icon(Icons.live_tv_outlined, color: Colors.grey),
-                selectedIcon: Icon(Icons.live_tv, color: Colors.white),
-                label: 'Live',
+                icon: Icon(Icons.table_rows_rounded, color: Colors.grey),
+                selectedIcon:
+                    Icon(Icons.table_rows_rounded, color: Colors.white),
+                label: 'Matchs',
               ),
               NavigationDestination(
                 icon: Icon(Icons.person_2_outlined, color: Colors.grey),

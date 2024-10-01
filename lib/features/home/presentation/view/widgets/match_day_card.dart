@@ -34,7 +34,7 @@ class MatchDayCard extends StatelessWidget {
           color: const Color(0xff353535),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,8 +125,7 @@ class MatchDayCard extends StatelessWidget {
         Text(
           //reformat the date to show only the time
           utcDate.split('T').last.substring(0, 5) +
-              ' UTC'
-                  '\n'
+              ' UTC - '
                   //reformat the date to show only the date
                   '${utcDate.split('T').first}',
           style: const TextStyle(
