@@ -7,21 +7,21 @@
 ### Onboarding Screens
 
 _Onboarding Screen 1_  
-![Onboarding Screen 1](assets/images/onboarding1_screen.png)
+<img src="assets/images/onboarding1_screen.png" alt="Onboarding Screen 1" width="300"/>
 
 _Onboarding Screen 2_  
-![Onboarding Screen 2](assets/images/onboarding2_screen.png)
+<img src="assets/images/onboarding2_screen.png" alt="Onboarding Screen 2" width="300"/>
 
 _Onboarding Screen 3_  
-![Onboarding Screen 3](assets/images/onboarding3_screen.png)
+<img src="assets/images/onboarding3_screen.png" alt="Onboarding Screen 3" width="300"/>
 
 ### Authentication Screens
 
 _Login Screen_  
-![Login Screen](assets/images/login&register.png)
+<img src="assets/images/login&register.png" alt="Login Screen" width="300"/>
 
 _Home Screen_  
-![Home Screen](assets/images/home_screen.png)
+<img src="assets/images/home_screen.png" alt="Home Screen" width="300"/>
 
 ## Features
 
@@ -34,24 +34,3 @@ _Home Screen_
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/sportify.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd sportify
-   ```
-3. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
-4. Run the application:
-   ```bash
-   flutter run
-   ```
-
-## Contributing
-
-[Add guidelines for contributing to the project here]
-
-## License
-
-[Add licensing information here]
