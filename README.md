@@ -23,7 +23,7 @@
 ![Register Screen](assets/images/register.png)  
 
 *Home Screen*  
-![Home Screen](assets/images/home.png)  
+![Home Screen](assets/images/home_screen.png)  
 
 ## Features
 
