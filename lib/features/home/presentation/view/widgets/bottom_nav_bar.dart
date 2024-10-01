@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportify/features/home/presentation/view/screens/home_screen.dart';
+import 'package:sportify/features/home/presentation/view/screens/match_table_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -78,9 +79,7 @@ class NavigationController extends GetxController {
     Container(
       color: Colors.green,
     ),
-    Container(
-      color: Colors.blue,
-    ),
+    MatchTableScreen(),
     Container(
       color: Colors.yellow,
     ),
