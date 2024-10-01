@@ -13,10 +13,10 @@
 ### Authentication Screens
 
 _Login Screen_  
-<img src="assets/images/login&register.png" alt="Login Screen" width="300"/>
+<img src="assets/images/login&register.png" alt="Login Screen" width="400"/>
 
 _Home Screen_  
-<img src="assets/images/home_screen.png" alt="Home Screen" width="300"/>
+<img src="assets/images/home_screen.png" alt="Home Screen" width="400"/>
 
 ## Features
 
