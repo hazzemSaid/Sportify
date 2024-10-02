@@ -24,7 +24,7 @@ _Home Screen_
 <img src="assets/images/home_screen.png" alt="Home Screen" width="400"/>
 
 _Match Table Screen_  
-<img src="assets/images/match_table.png" alt="Match Table Screen" width="400"/>
+<img src="assets/images/match_table.png" alt="Match Table Screen" width="500"/>
 
 ## Features
 
