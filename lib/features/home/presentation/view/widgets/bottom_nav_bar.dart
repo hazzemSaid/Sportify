@@ -52,9 +52,9 @@ class BottomNavBar extends StatelessWidget {
                 label: 'Explore',
               ),
               NavigationDestination(
-                icon: Icon(Icons.table_rows_rounded, color: Colors.grey),
+                icon: Icon(Icons.sports_soccer_outlined, color: Colors.grey),
                 selectedIcon:
-                    Icon(Icons.table_rows_rounded, color: Colors.white),
+                    Icon(Icons.sports_soccer_outlined, color: Colors.white),
                 label: 'Matchs',
               ),
               NavigationDestination(

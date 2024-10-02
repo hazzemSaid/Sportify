@@ -122,16 +122,24 @@ class MatchDayCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          //reformat the date to show only the time
-          utcDate.split('T').last.substring(0, 5) +
-              ' UTC - '
-                  //reformat the date to show only the date
-                  '${utcDate.split('T').first}',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
+        Container(
+          height: 20,
+          width: 80,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
             color: Colors.white,
-            fontSize: 12,
+          ),
+          child: Text(
+            //reformat the date to show only the time
+            utcDate.split('T').last.substring(0, 5) + ' PM',
+            //reformat the date to show only the date
+            // '${utcDate.split('T').first}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 14,
+            ),
           ),
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
 import 'package:sportify/features/Home/presentation/viewmodel/match_day/match_day_cubit.dart';
 
@@ -9,6 +10,7 @@ class MatchTableScreen extends StatefulWidget {
 }
 
 class _MatchTableScreenState extends State<MatchTableScreen> {
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     BlocProvider.of<MatchDayCubit>(context).getMatchesbyDate(
@@ -17,38 +19,47 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
     );
   }
 
-  final List<String> daysOfWeek = [
-    "Yesterday",
-    "Today",
-    "Tomorrow",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-  ];
+  // Generate dynamic days based on current day
+  List<String> getDaysOfWeek() {
+    DateTime today = DateTime.now();
+    List<String> days = [];
+
+    for (int i = -1; i <= 7; i++) {
+      DateTime day = today.add(Duration(days: i));
+      String dayLabel = i == -1
+          ? 'Yesterday'
+          : i == 0
+              ? 'Today'
+              : i == 1
+                  ? 'Tomorrow'
+                  : DateFormat.EEEE().format(day);
+      days.add(dayLabel);
+    }
+
+    return days;
+  }
+
   String selectedDay = "Today";
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width to adjust sizes dynamically
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xff2C2C2C),
       appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.only(top: 15),
         child: Column(
-          //hazem@gmail.com
-          //01224661310
           children: [
             Container(
               height: 50,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: daysOfWeek.length,
+                itemCount: getDaysOfWeek().length,
                 itemBuilder: (context, index) {
-                  String day = daysOfWeek[index];
+                  String day = getDaysOfWeek()[index];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -71,8 +82,8 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                             endDate = startDate;
                             break;
                           default:
-                            int daysToAdd = daysOfWeek.indexOf(day) -
-                                daysOfWeek.indexOf("Today");
+                            int daysToAdd = getDaysOfWeek().indexOf(day) -
+                                getDaysOfWeek().indexOf("Today");
                             startDate = today.add(Duration(days: daysToAdd));
                             endDate = startDate;
                             break;
@@ -88,8 +99,11 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 3),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 20),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal:
+                            screenWidth * 0.05, // Adjusted based on screen size
+                      ),
                       decoration: BoxDecoration(
                         color: selectedDay == day
                             ? Colors.white
@@ -131,59 +145,81 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                           elevation: 5,
                           color: Colors.grey[900],
                           child: ListTile(
-                            onTap: () {
-                              // Handle match tap
-                            },
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // Team A with logo
-                                Row(
-                                  children: [
-                                    Image.network(
-                                      state.matches![index].homeTeam?.crest ??
-                                          'default_logo_url', // Replace with actual logo URL
-                                      // Replace with actual logo URL
-                                      width: 30,
-                                      height: 30,
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            10), // Space between logo and team name
-                                    Text(
-                                      state.matches![index].homeTeam?.name ??
-                                          'Team A', // Replace with actual team name
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
+                                // Home team row
+                                Expanded(
+                                  flex: 1,
+                                  child: Row(
+                                    children: [
+                                      Image.network(
+                                        state.matches![index].homeTeam?.crest ??
+                                            'default_logo_url',
+                                        width: screenWidth * 0.08,
+                                        height: screenWidth * 0.08,
+                                        fit: BoxFit
+                                            .contain, // Keep the image size consistent
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          state.matches![index].homeTeam
+                                                  ?.name ??
+                                              'Team A',
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                const Text(
-                                  'vs',
-                                  style: TextStyle(color: Colors.white),
+                                const SizedBox(
+                                  width: 5,
                                 ),
-                                // Team B with logo
-                                Row(
-                                  children: [
-                                    Text(
-                                      state.matches![index].awayTeam?.name ??
-                                          'Team B', // Replace with actual team name
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            10), // Space between team name and logo
-                                    Image.network(
-                                      state.matches![index].awayTeam?.crest ??
-                                          'default_logo_url',
-                                      // Replace with actual logo URL
-                                      width: 30,
-                                      height: 30,
-                                    ),
-                                  ],
+                                const Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'vs',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          state.matches![index].awayTeam
+                                                  ?.name ??
+                                              'Team B',
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          textAlign: TextAlign
+                                              .end, // Align text to the right
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Image.network(
+                                        state.matches![index].awayTeam?.crest ??
+                                            'default_logo_url',
+                                        width: screenWidth * 0.08,
+                                        height: screenWidth * 0.08,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -191,22 +227,20 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                               padding: const EdgeInsets.only(
                                 top: 15.0,
                                 left: 8.0,
-                              ), // Add vertical space here
+                              ),
                               child: Align(
-                                alignment: Alignment
-                                    .center, // Align the container to the left
+                                alignment: Alignment.center,
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 5.0,
                                     horizontal: 10.0,
-                                  ), // Padding inside the container
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[700], // Background color
-                                    borderRadius: BorderRadius.circular(
-                                        10), // Rounded corners
+                                    color: Colors.grey[700],
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    "Time: ${state.matches![index].utcDate}", // Replace with actual match time
+                                    "Time: ${state.matches![index].utcDate}",
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                 ),
