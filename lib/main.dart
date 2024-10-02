@@ -54,11 +54,7 @@ class MyApp extends StatelessWidget {
                           ),
                     ),
                   ),
-                )..getMatchesbyDate(
-                    //today matches
-                    startDate: '2024-09-28',
-                    dateTo: '2024-09-28',
-                  )),
+                ))
       ],
       child: GetMaterialApp(
         theme: ThemeData(

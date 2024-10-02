@@ -9,6 +9,14 @@ class MatchTableScreen extends StatefulWidget {
 }
 
 class _MatchTableScreenState extends State<MatchTableScreen> {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    BlocProvider.of<MatchDayCubit>(context).getMatchesbyDate(
+      startDate: DateTime.now().toIso8601String().split('T').first,
+      dateTo: DateTime.now().toIso8601String().split('T').first,
+    );
+  }
+
   final List<String> daysOfWeek = [
     "Yesterday",
     "Today",
@@ -22,11 +30,6 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
     "Sunday"
   ];
   String selectedDay = "Today";
-  final Map<String, List<Match>> matchesByDay = {
-    "Today": [Match(teamA: "Leeds United", teamB: "Liverpool", time: "18:00")],
-    "Tomorrow": [Match(teamA: "Team C", teamB: "Team D", time: "20:00")],
-    // Add more days and matches here...
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
 
                         switch (day) {
                           case "Yesterday":
-                            startDate = today.subtract(Duration(days: 1));
+                            startDate = today.subtract(const Duration(days: 1));
                             endDate = startDate;
                             break;
                           case "Today":
@@ -64,7 +67,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                             endDate = startDate;
                             break;
                           case "Tomorrow":
-                            startDate = today.add(Duration(days: 1));
+                            startDate = today.add(const Duration(days: 1));
                             endDate = startDate;
                             break;
                           default:
@@ -74,7 +77,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                             endDate = startDate;
                             break;
                         }
-                        endDate = endDate.add(Duration(days: 1));
+                        endDate = endDate.add(const Duration(days: 1));
                         BlocProvider.of<MatchDayCubit>(context)
                             .getMatchesbyDate(
                           startDate:
@@ -232,12 +235,4 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
       ),
     );
   }
-}
-
-class Match {
-  final String teamA;
-  final String teamB;
-  final String time;
-
-  Match({required this.teamA, required this.teamB, required this.time});
 }
