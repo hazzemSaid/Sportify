@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sportify/core/utils/constrains/ids.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
-import 'package:sportify/features/home/presentation/view/widgets/league_table.dart';
-import 'package:sportify/features/home/presentation/view/widgets/match_day_card.dart';
-import 'package:sportify/features/home/presentation/view/widgets/match_schedules.dart';
-import 'package:sportify/features/home/presentation/view/widgets/match_week.dart';
-import 'package:sportify/features/home/presentation/view/widgets/title_section.dart';
-import 'package:sportify/features/home/presentation/viewmodel/match_day/match_day_cubit.dart';
-import 'package:sportify/features/home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
+import 'package:sportify/features/Home/presentation/view/widgets/league_table.dart';
+import 'package:sportify/features/Home/presentation/view/widgets/match_day_card.dart';
+import 'package:sportify/features/Home/presentation/view/widgets/match_schedules.dart';
+import 'package:sportify/features/Home/presentation/view/widgets/match_week.dart';
+import 'package:sportify/features/Home/presentation/view/widgets/title_section.dart';
+import 'package:sportify/features/Home/presentation/viewmodel/match_day/match_day_cubit.dart';
+import 'package:sportify/features/Home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -72,8 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               },
-              //hazem@gmail.com
-              //01224661310
             ),
             const SizedBox(height: 20),
             Padding(

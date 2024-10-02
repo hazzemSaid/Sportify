@@ -69,6 +69,10 @@ class FootballData {
   static const int nottinghamForest = 13; // Nottingham Forest
   static const int sheffieldUnited = 17; // Sheffield United
   static const int westhamUnited = 68; // West Ham United
-
   // Add any other relevant information or methods
+  static String today = DateTime.now().toString();
+  static String tomorrow =
+      DateTime.now().add(const Duration(days: 1)).toString();
+  static String yesterday =
+      DateTime.now().subtract(const Duration(days: 1)).toString();
 }

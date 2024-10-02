@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:sportify/features/home/data/model/Standing_League/standings_league/table.dart';
-import 'package:sportify/features/home/data/model/Standing_League/standings_league/team.dart';
-import 'package:sportify/features/home/data/repo/homerepoImp.dart';
+import 'package:sportify/features/Home/data/model/Standing_League/standings_league/table.dart';
+import 'package:sportify/features/Home/data/model/Standing_League/standings_league/team.dart';
+import 'package:sportify/features/Home/data/repo/homerepoImp.dart';
 
 part 'standing_state.dart';
 

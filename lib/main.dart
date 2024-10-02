@@ -6,13 +6,13 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
+import 'package:sportify/features/Home/presentation/viewmodel/match_day/match_day_cubit.dart';
+import 'package:sportify/features/Home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
-import 'package:sportify/features/home/presentation/viewmodel/match_day/match_day_cubit.dart';
-import 'package:sportify/features/home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
 import 'package:sportify/firebase_options.dart';
 
 import 'core/utils/api/Api.dart';
-import 'features/home/data/repo/homerepoImp.dart';
+import 'features/Home/data/repo/homerepoImp.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,11 @@ class MyApp extends StatelessWidget {
                           ),
                     ),
                   ),
-                )..getMatchesbyDate()),
+                )..getMatchesbyDate(
+                    //today matches
+                    startDate: '2024-09-28',
+                    dateTo: '2024-09-28',
+                  )),
       ],
       child: GetMaterialApp(
         theme: ThemeData(

@@ -1,16 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:sportify/features/home/data/model/matchesbydate/match.dart';
-import 'package:sportify/features/home/data/repo/homerepoImp.dart';
+import 'package:sportify/features/Home/data/model/matchesbydate/match.dart';
+import 'package:sportify/features/Home/data/repo/homerepoImp.dart';
 
 part 'match_day_state.dart';
 
 class MatchDayCubit extends Cubit<MatchDayState> {
   final Homerepoimp homeRepo;
   MatchDayCubit(this.homeRepo) : super(MatchDayInitial());
-  void getMatchesbyDate() async {
+  void getMatchesbyDate({
+    required String startDate,
+    required String dateTo,
+  }) async {
     emit(MatchDayLoading());
-    final result = homeRepo.GetMatchesbyDate();
+    final result = homeRepo.GetMatchesbyDate(
+      dateFrom: startDate,
+      dateTo: dateTo,
+    );
     result.fold(
       (failure) => emit(MatchDayError(message: failure.message)),
       (data) => data.then((value) {

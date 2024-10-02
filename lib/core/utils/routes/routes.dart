@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sportify/features/home/presentation/view/screens/home_screen.dart';
+import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_screen.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
-import 'package:sportify/features/home/presentation/view/widgets/bottom_nav_bar.dart';
+import 'package:sportify/features/Home/presentation/view/widgets/bottom_nav_bar.dart';
 
 class AppRoutes {
   static const String splash = '/';

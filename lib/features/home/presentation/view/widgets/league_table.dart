@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sportify/features/home/data/model/Standing_League/standings_league/table.dart';
+import 'package:sportify/features/Home/data/model/Standing_League/standings_league/table.dart';
 
 class LeagueTable extends StatelessWidget {
   final List<Tables> teams;
