@@ -15,14 +15,16 @@ _Onboarding Screen 2_
 _Onboarding Screen 3_  
 <img src="assets/images/onboarding3_screen.png" alt="Onboarding Screen 3" width="400"/>
 
-
 ### Authentication Screens
 
 _Login Screen_  
 <img src="assets/images/login&register.png" alt="Login Screen" width="400"/>
 
 _Home Screen_  
-<img src="assets/images/home_screen.png" alt="Home Screen" width="400"/>
+<img src="assets/images/home_screen.png" alt="Home Screen" width="400"/
+
+_Match Table Screen_  
+<img src="assets/images/match_table.png" alt="Home Screen" width="400"/>
 
 ## Features
 
@@ -35,3 +37,4 @@ _Home Screen_
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/sportify.git
+   ```
