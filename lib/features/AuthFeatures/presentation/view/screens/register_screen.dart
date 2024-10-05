@@ -88,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.back();
-                      Get.toNamed(AppRoutes.loginScreen);
+                      Navigator.pushNamed(context, AppRoutes.favfootballteam);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
