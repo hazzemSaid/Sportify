@@ -40,6 +40,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.1
   font_awesome_flutter: ^10.7.0
   get: ^4.6.6
   google_fonts: ^6.2.1
@@ -86,3 +87,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "assets/icons/icon.png"
+  adaptive_icon_foreground: "assets/icons/icon.png"
