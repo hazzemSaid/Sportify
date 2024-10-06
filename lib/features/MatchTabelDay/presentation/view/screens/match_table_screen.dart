@@ -20,19 +20,21 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
   }
 
   // Generate dynamic days based on current day
-  List<String> getDaysOfWeek() {
+  List<String> getDaysAndDatesOfWeek() {
     DateTime today = DateTime.now();
     List<String> days = [];
 
     for (int i = -1; i <= 7; i++) {
       DateTime day = today.add(Duration(days: i));
+      String formattedDay = DateFormat('EEE').format(day);
+      String formattedMonth = DateFormat('MMM').format(day);
       String dayLabel = i == -1
           ? 'Yesterday'
           : i == 0
               ? 'Today'
               : i == 1
                   ? 'Tomorrow'
-                  : DateFormat.EEEE().format(day);
+                  : '$formattedDay ${day.day} $formattedMonth';
       days.add(dayLabel);
     }
 
@@ -40,26 +42,52 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
   }
 
   String selectedDay = "Today";
+  String selectedMatch = "Select Match"; // Dropdown initial value
+  List<Map<String, String>> matches = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Add match data (make sure there are no duplicates in the team names)
+    matches = [
+      {
+        'team1': 'Team A',
+        'team2': 'Team B',
+        'time': '18:00',
+        'image1': 'assets/images/club_logo3.png',
+        'image2': 'assets/images/club_logo2.png',
+      },
+      {
+        'team1': 'Team C',
+        'team2': 'Team D',
+        'time': '20:00',
+        'image1': 'assets/images/club_logo.png',
+        'image2': 'assets/images/club_logo1.png',
+      },
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Get screen width to adjust sizes dynamically
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: const Color(0xff2C2C2C),
       appBar: const CustomAppBar(),
       body: Padding(
-        padding: const EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(
+          top: 15,
+          left: 8,
+        ),
         child: Column(
           children: [
             Container(
               height: 50,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: getDaysOfWeek().length,
+                itemCount: getDaysAndDatesOfWeek().length,
                 itemBuilder: (context, index) {
-                  String day = getDaysOfWeek()[index];
+                  String day = getDaysAndDatesOfWeek()[index];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -68,32 +96,28 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                         DateTime startDate;
                         DateTime endDate;
 
-                        switch (day) {
-                          case "Yesterday":
-                            startDate = today.subtract(const Duration(days: 1));
-                            endDate = startDate;
-                            break;
-                          case "Today":
-                            startDate = today;
-                            endDate = startDate;
-                            break;
-                          case "Tomorrow":
-                            startDate = today.add(const Duration(days: 1));
-                            endDate = startDate;
-                            break;
-                          default:
-                            int daysToAdd = getDaysOfWeek().indexOf(day) -
-                                getDaysOfWeek().indexOf("Today");
-                            startDate = today.add(Duration(days: daysToAdd));
-                            endDate = startDate;
-                            break;
+                        if (day.contains("Yesterday")) {
+                          startDate = today.subtract(const Duration(days: 1));
+                        } else if (day.contains("Today")) {
+                          startDate = today;
+                        } else if (day.contains("Tomorrow")) {
+                          startDate = today.add(const Duration(days: 1));
+                        } else {
+                          int daysToAdd = getDaysAndDatesOfWeek().indexOf(day) -
+                              getDaysAndDatesOfWeek().indexOf("Today");
+                          startDate = today.add(Duration(days: daysToAdd));
                         }
-                        endDate = endDate.add(const Duration(days: 1));
+
+                        endDate = startDate;
                         BlocProvider.of<MatchDayCubit>(context)
                             .getMatchesbyDate(
                           startDate:
                               startDate.toIso8601String().split('T').first,
-                          dateTo: endDate.toIso8601String().split('T').first,
+                          dateTo: endDate
+                              .add(const Duration(days: 1))
+                              .toIso8601String()
+                              .split('T')
+                              .first,
                         );
                       });
                     },
@@ -101,8 +125,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                       margin: const EdgeInsets.symmetric(horizontal: 3),
                       padding: EdgeInsets.symmetric(
                         vertical: 10,
-                        horizontal:
-                            screenWidth * 0.05, // Adjusted based on screen size
+                        horizontal: screenWidth * 0.05,
                       ),
                       decoration: BoxDecoration(
                         color: selectedDay == day
@@ -127,143 +150,89 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
               ),
             ),
             const SizedBox(height: 15),
-            BlocBuilder<MatchDayCubit, MatchDayState>(
-              builder: (context, state) {
-                if (state is MatchDayInitial) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.red,
-                    ),
-                  );
-                }
-                if (state is MatchDayLoaded) {
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: state.matches?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 5,
-                          color: Colors.grey[900],
-                          child: ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // Home team row
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    children: [
-                                      Image.network(
-                                        state.matches![index].homeTeam?.crest ??
-                                            'default_logo_url',
-                                        width: screenWidth * 0.08,
-                                        height: screenWidth * 0.08,
-                                        fit: BoxFit
-                                            .contain, // Keep the image size consistent
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: Text(
-                                          state.matches![index].homeTeam
-                                                  ?.name ??
-                                              'Team A',
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'vs',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          state.matches![index].awayTeam
-                                                  ?.name ??
-                                              'Team B',
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          textAlign: TextAlign
-                                              .end, // Align text to the right
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Image.network(
-                                        state.matches![index].awayTeam?.crest ??
-                                            'default_logo_url',
-                                        width: screenWidth * 0.08,
-                                        height: screenWidth * 0.08,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Container(
+                width: screenWidth,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 6),
+                  child: DropdownButton<String>(
+                    value: selectedMatch,
+                    dropdownColor: Colors.grey[700],
+                    iconEnabledColor: Colors.white,
+                    isExpanded: true,
+                    icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                    items: [
+                      DropdownMenuItem<String>(
+                        value: "Select Match",
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/league_logo.png",
                             ),
-                            subtitle: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 15.0,
-                                left: 8.0,
+                            SizedBox(width: 8),
+                            Text("League Name",
+                                style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                      ...matches.map((match) {
+                        String displayName = match['team1']! +
+                            (match['team2']!.isNotEmpty
+                                ? match['time']! + match['team2']!
+                                : '');
+                        return DropdownMenuItem<String>(
+                          value: displayName,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  if (match['image1']!.isNotEmpty)
+                                    Image.asset(
+                                      match['image1']!,
+                                      width: 30,
+                                      height: 30,
+                                    ),
+                                  SizedBox(width: 8),
+                                  Text(match['team1']!,
+                                      style: TextStyle(color: Colors.white)),
+                                ],
                               ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 5.0,
-                                    horizontal: 10.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[700],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    "Time: ${state.matches![index].utcDate}",
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ),
+                              if (match['team2']!.isNotEmpty)
+                                Text(match['time']!,
+                                    style: TextStyle(color: Colors.white)),
+                              Row(
+                                children: [
+                                  if (match['image2']!.isNotEmpty)
+                                    Image.asset(
+                                      match['image2']!,
+                                      width: 30,
+                                      height: 30,
+                                    ),
+                                  SizedBox(width: 8),
+                                  Text(match['team2']!,
+                                      style: TextStyle(color: Colors.white)),
+                                ],
                               ),
-                            ),
+                            ],
                           ),
                         );
-                      },
-                    ),
-                  );
-                }
-                if (state is MatchDayError) {
-                  return Center(
-                    child: Text(state.message),
-                  );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.red,
+                      }).toList(),
+                    ],
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {}
+                    },
                   ),
-                );
-              },
-            )
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
           ],
         ),
       ),
