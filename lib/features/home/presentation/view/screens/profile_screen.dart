@@ -209,7 +209,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Log out option placed at the bottom
                   CustomRow(
                     title: 'Log out',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
                     icon: Icons.logout,
                     color: Colors.red,
                   ),
