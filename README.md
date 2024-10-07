@@ -26,6 +26,9 @@ _Home Screen_
 _Match Table Screen_  
 <img src="assets/images/match_table.png" alt="Match Table Screen" width="500"/>
 
+_Profile Screen_  
+<img src="assets/images/profile_screen.png" alt="Profile Screen" width="500"/>
+
 ## Features
 
 - User-friendly onboarding experience
