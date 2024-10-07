@@ -73,5 +73,6 @@ class MyApp extends StatelessWidget {
         home: const SplashScreen(),
       ),
     );
+    //01224661310
   }
 }

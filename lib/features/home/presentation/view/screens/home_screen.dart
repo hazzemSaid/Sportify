@@ -18,6 +18,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void initState() {
+    super.initState();
+    BlocProvider.of<MatchDayCubit>(context).getMatchesbyDate(
+      startDate: DateTime.now().toIso8601String().split('T').first,
+      dateTo: DateTime.now().toIso8601String().split('T').first,
+    );
+  }
+
   String? selectedLeague = 'Premier League';
   final List<String> leagues = [
     'Premier League',
@@ -96,11 +104,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 league:
                                     FootballData.leagueMap[newValue] ?? 'PL',
                                 season: '2024',
-                                matchDay: 6);
+                                matchDay: 7);
                       } else {
                         BlocProvider.of<StandingCubit>(context)
                             .getStandingByLeague(
-                                league: 'PL', season: '2024', matchDay: 6);
+                                league: 'PL', season: '2024', matchDay: 7);
                       }
                       setState(() {
                         selectedLeague = newValue;

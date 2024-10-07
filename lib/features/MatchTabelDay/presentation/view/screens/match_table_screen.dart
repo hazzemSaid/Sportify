@@ -109,7 +109,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                         }
 
                         endDate = startDate;
-                        BlocProvider.of<MatchDayCubit>(context)
+                        /*  BlocProvider.of<MatchDayCubit>(context)
                             .getMatchesbyDate(
                           startDate:
                               startDate.toIso8601String().split('T').first,
@@ -118,7 +118,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                               .toIso8601String()
                               .split('T')
                               .first,
-                        );
+                        );*/
                       });
                     },
                     child: Container(

@@ -17,7 +17,16 @@ class MatchDayCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Row(children: [
-          for (int i = 0; i < matches.length; i++) _buildMatchCard(i),
+          if (matches.isEmpty)
+            const Text(
+              'No Matches Today',
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 20,
+              ),
+            )
+          else
+            for (int i = 0; i < matches.length; i++) _buildMatchCard(i),
         ]),
       ),
     );
