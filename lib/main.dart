@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                     ),
               ),
             ),
-          )..getStandingByLeague(league: "PL", season: '2024', matchDay: 6),
+          )..getStandingByLeague(league: "PL", season: '2024', matchDay: 32),
         ),
         BlocProvider<MatchDayCubit>(
             create: (context) => MatchDayCubit(

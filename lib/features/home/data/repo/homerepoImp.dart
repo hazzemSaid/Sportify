@@ -44,7 +44,7 @@ class Homerepoimp implements HomeRepo {
         api.GetStandingsleague(
           league: league,
           season: season,
-          matchday: matchday,
+          matchday: 32,
         ),
       );
     } catch (e) {
