@@ -1,11 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart'; // استيراد مكتبة path_provider
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
-import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart'; // استيراد Cubit
+import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
+import 'package:sportify/features/Profile/presentation/view/widgets/ShowEditnameDiaolg.dart';
+import 'package:sportify/features/home/presentation/view/screens/profile_screen.dart'; // استيراد Cubit
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -53,66 +56,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  void _showEditNameDialog() {
-    final TextEditingController _nameController =
-        TextEditingController(text: _userName);
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: const Color(0xff2C2C2C),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          title: const Text(
-            'Edit Name',
-            style: TextStyle(color: Colors.white),
-          ),
-          content: TextField(
-            style: const TextStyle(color: Colors.white),
-            controller: _nameController,
-            decoration: const InputDecoration(
-              hintText: 'Enter your name',
-              hintStyle: TextStyle(color: Colors.white),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                setState(() {
-                  _userName = _nameController.text;
-                });
-                // حفظ الاسم في SharedPreferences
-                final SharedPreferences prefs =
-                    await SharedPreferences.getInstance();
-                await prefs.setString('userName', _userName);
-                Navigator.of(context).pop();
-              },
-              child: const Text(
-                'Save',
-                style: TextStyle(
-                  color: Color(0xff00A3B7),
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text(
-                'Cancel',
-                style: TextStyle(
-                  color: Color(0xff00A3B7),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Container(
                               height: 30,
                               width: 30,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.black,
                               ),
@@ -203,7 +146,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   CustomRow(
                     title: 'EDIT NAME',
                     icon: Icons.edit,
-                    onPressed: _showEditNameDialog,
+                    onPressed: () {
+                      showEditNameDialog(
+                        context: context,
+                        onSaved: (String name) async {
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.setString('userName', name);
+                          setState(() {
+                            _userName = name;
+                          });
+                        },
+                        userName: _userName,
+                      );
+                    },
                     color: Colors.white,
                   ),
                   const SizedBox(height: 20),
@@ -266,44 +222,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CustomRow extends StatelessWidget {
-  const CustomRow({
-    super.key,
-    required this.title,
-    this.icon,
-    required this.onPressed,
-    required this.color,
-  });
-
-  final String title;
-  final IconData? icon;
-  final VoidCallback onPressed;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: color,
-            fontSize: 18,
-          ),
-        ),
-        if (icon != null)
-          IconButton(
-            onPressed: onPressed,
-            icon: Icon(icon),
-            color: color,
-            iconSize: 20,
-          ),
-      ],
     );
   }
 }
