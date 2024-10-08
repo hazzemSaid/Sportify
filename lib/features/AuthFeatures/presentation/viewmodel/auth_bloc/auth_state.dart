@@ -44,3 +44,6 @@ class PhoneSginInLoading extends AuthState {}
 class PhoneSginInSuccess extends AuthState {}
 
 class PhoneSginInFailed extends AuthState {}
+
+// Logout state
+class AuthLoggedOut extends AuthState {}

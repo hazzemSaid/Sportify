@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // تأكد من استيراد get
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/widgets/custom_button.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -12,6 +14,21 @@ class OnboardingPage extends StatefulWidget {
 
 class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboardingStatus();
+  }
+
+  Future<void> _checkOnboardingStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? onboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
+
+    if (onboardingCompleted) {
+      Navigator.pushNamed(context, AppRoutes.loginScreen);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +47,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             buttonText: 'Next',
             secondaryButtonText: 'Skip',
             onTap: () {
-              Get.toNamed('/loginScreen');
+              _completeOnboarding();
             },
           ),
           OnboardingScreen(
@@ -82,8 +99,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
     }
   }
 
-  void _completeOnboarding() {
-    Navigator.pushReplacementNamed(context, '/loginScreen');
+  Future<void> _completeOnboarding() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboardingCompleted', true);
+
+    Navigator.pushNamed(context, AppRoutes.loginScreen);
   }
 }
 
@@ -113,7 +133,6 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get the screen height
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
@@ -164,9 +183,7 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(
-            flex: 3,
-          ),
+          const Spacer(flex: 3),
           SmoothPageIndicator(
             controller: pageController,
             count: pageCount,
@@ -177,9 +194,7 @@ class OnboardingScreen extends StatelessWidget {
               spacing: 5.0,
             ),
           ),
-          const Spacer(
-            flex: 2,
-          ),
+          const Spacer(flex: 2),
           CustomButton(
             text: buttonText,
             onPressed: onPressed,
@@ -195,9 +210,7 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(
-            flex: 1,
-          )
+          const Spacer(flex: 1)
         ],
       ),
     );

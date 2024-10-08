@@ -51,13 +51,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 20),
             const TitleSection(
               title: 'Match This Week',
-              subtitle: 'See All',
             ),
-            MatchWeek(),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: MatchWeek(),
+            ),
             const SizedBox(height: 20),
             const TitleSection(
               title: 'Match Day',
-              subtitle: 'See All',
             ),
             BlocBuilder<MatchDayCubit, MatchDayState>(
               builder: (context, state) {

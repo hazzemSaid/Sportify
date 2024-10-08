@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart'; // استيراد مكتبة path_provider
+import 'package:sportify/core/utils/routes/routes.dart';
+import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart'; // استيراد Cubit
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -10,9 +15,26 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  File? _image; // Variable to store the selected image
+  File? _image;
   final ImagePicker _picker = ImagePicker();
-  String _userName = 'Ahmed Asaad'; // Variable to store the user name
+  String _userName = 'User Name';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? 'User Name';
+      String? imagePath = prefs.getString('userImage');
+      if (imagePath != null) {
+        _image = File(imagePath);
+      }
+    });
+  }
 
   Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -20,6 +42,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         _image = File(pickedFile.path);
       });
+      // حفظ الصورة في المسار المناسب
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final String imagePath = '${directory.path}/${pickedFile.name}';
+      await _image!.copy(imagePath);
+
+      // حفظ مسار الصورة في SharedPreferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userImage', imagePath);
     }
   }
 
@@ -49,11 +79,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           actions: [
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
-                  _userName = _nameController.text; // Update the user name
+                  _userName = _nameController.text;
                 });
-                Navigator.of(context).pop(); // Close the dialog
+                // حفظ الاسم في SharedPreferences
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                await prefs.setString('userName', _userName);
+                Navigator.of(context).pop();
               },
               child: const Text(
                 'Save',
@@ -64,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text(
                 'Cancel',
@@ -84,7 +118,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: const Color(0xff2C2C2C),
       body: SingleChildScrollView(
-        // Wrap the Column in a SingleChildScrollView
         child: Column(
           children: [
             Container(
@@ -103,15 +136,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap:
-                          _pickImage, // Open image picker when avatar is tapped
+                      onTap: _pickImage,
                       child: Stack(
                         children: [
                           CircleAvatar(
                             radius: 50,
                             backgroundImage: _image != null
                                 ? FileImage(_image!) as ImageProvider
-                                : const AssetImage('assets/images/avatar.png'),
+                                : const AssetImage('assets/images/avatar.jpeg'),
                           ),
                           Positioned(
                             bottom: 0,
@@ -135,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      _userName, // Display the user name
+                      _userName,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -147,7 +179,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            // Profile options section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
@@ -172,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   CustomRow(
                     title: 'EDIT NAME',
                     icon: Icons.edit,
-                    onPressed: _showEditNameDialog, // Show dialog when pressed
+                    onPressed: _showEditNameDialog,
                     color: Colors.white,
                   ),
                   const SizedBox(height: 20),
@@ -206,11 +237,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: const Color(0xffADABAB),
                   ),
                   const SizedBox(height: 20),
-                  // Log out option placed at the bottom
                   CustomRow(
                     title: 'Log out',
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                    onPressed: () async {
+                      await context
+                          .read<AuthCubit>()
+                          .logout(); // Ensure logout is complete
+                      // Reset login status in SharedPreferences
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('isLoggedIn', false);
+
+                      // Clear the navigation stack and navigate to login screen
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        AppRoutes
+                            .loginScreen, // Ensure this points to your login screen
+                        (Route<dynamic> route) =>
+                            false, // Remove all previous routes
+                      );
                     },
                     icon: Icons.logout,
                     color: Colors.red,

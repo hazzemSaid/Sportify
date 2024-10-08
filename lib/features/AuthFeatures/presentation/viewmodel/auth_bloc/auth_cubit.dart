@@ -6,7 +6,8 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
-  Future<void> sgininwithemail({
+
+  Future<void> signInWithEmail({
     required String emailAddress,
     required String password,
   }) async {
@@ -37,7 +38,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> sginupwithemail({
+  Future<void> signUpWithEmail({
     required String emailAddress,
     required String password,
   }) async {
@@ -61,30 +62,31 @@ class AuthCubit extends Cubit<AuthState> {
       } else if (e.code == 'wrong-password') {
         emit(SginUpFailed(error: 'Wrong password provided.'));
       } else {
-        emit(SginUpFailed(error: 'Sign in failed: ${e.message}'));
+        emit(SginUpFailed(error: 'Sign up failed: ${e.message}'));
       }
     } catch (e) {
-      print(e);
-      emit(
-        SginUpFailed(
-          error: ("error : ${e.toString()}"),
-        ),
-      );
+      emit(SginUpFailed(error: "Error: ${e.toString()}"));
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      emit(AuthLoggedOut());
+    } catch (e) {
+      print("Error during logout: ${e.toString()}");
     }
   }
 
   @override
   void onChange(Change<AuthState> change) {
     super.onChange(change);
-
-    //i need to decribe the state
     print(change);
-    //i need to decribe the current state
     print(change.currentState);
-    //i need to decribe the next state
     print(change.nextState);
   }
 }
+
 /*  // Firebase registration function
   Future<void> register() async {
     if (!_formRegisterKey.currentState!.validate() || !agreePersonalData) {

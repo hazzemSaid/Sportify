@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // استيراد shared_preferences
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildPasswordField.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildSocialButton.dart';
@@ -20,9 +21,23 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final GlobalKey<FormState> _formLoginKey = GlobalKey<FormState>();
-
-  String errorMessage = '';
   bool _isObscured = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      Navigator.pushNamed(context, AppRoutes.bottomNavBar);
+    }
+  }
+
   @override
   void dispose() {
     email.dispose();
@@ -30,21 +45,20 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  // login function for firebase auth
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SginInLoading) {
         } else if (state is SginInSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Login Success'),
+          Get.snackbar('Login Successful', 'Welcome back',
+              snackPosition: SnackPosition.TOP,
               backgroundColor: Colors.green,
-            ),
-          );
-          Get.toNamed(AppRoutes.bottomNavBar);
+              colorText: Colors.white);
+
+          _saveLoginStatus();
+
+          Navigator.pushNamed(context, AppRoutes.bottomNavBar);
         } else if (state is SginInFailed) {
           Get.snackbar('Error', state.error ?? 'An error occurred',
               snackPosition: SnackPosition.TOP,
@@ -125,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomButton(
                           onPressed: () {
                             if (_formLoginKey.currentState!.validate()) {
-                              context.read<AuthCubit>().sgininwithemail(
+                              context.read<AuthCubit>().signInWithEmail(
                                     emailAddress: email.text,
                                     password: password.text,
                                   );
@@ -178,7 +192,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Get.toNamed(AppRoutes.registerScreen);
+                                Navigator.pushNamed(
+                                    context, AppRoutes.registerScreen);
                               },
                               child: const Text(
                                 "Register",
@@ -198,5 +213,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _saveLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
   }
 }

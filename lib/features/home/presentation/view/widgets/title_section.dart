@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TitleSection extends StatelessWidget {
-  const TitleSection(
-      {super.key, required this.title, required this.subtitle, this.onTap});
+  const TitleSection({super.key, required this.title, this.onTap});
   final String title;
-  final String subtitle;
   final VoidCallback? onTap;
 
   @override
@@ -20,13 +18,6 @@ class TitleSection extends StatelessWidget {
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
-            ),
-          ),
-          GestureDetector(
-            onTap: onTap,
-            child: Text(
-              subtitle,
-              style: const TextStyle(color: Colors.grey),
             ),
           ),
         ],
