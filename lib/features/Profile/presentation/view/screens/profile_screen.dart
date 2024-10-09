@@ -3,13 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart'; // استيراد مكتبة path_provider
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
+import 'package:sportify/features/Profile/presentation/view/widgets/CustomRow.dart';
 import 'package:sportify/features/Profile/presentation/view/widgets/ShowEditnameDiaolg.dart';
+<<<<<<< HEAD
 
 import '../widgets/CustomRow.dart';
+=======
+>>>>>>> a348ed0819b3cf286394ad86b4fa1410ae0e8dfb
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -46,12 +50,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         _image = File(pickedFile.path);
       });
-      // حفظ الصورة في المسار المناسب
       final Directory directory = await getApplicationDocumentsDirectory();
       final String imagePath = '${directory.path}/${pickedFile.name}';
       await _image!.copy(imagePath);
 
-      // حفظ مسار الصورة في SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('userImage', imagePath);
     }

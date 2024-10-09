@@ -10,7 +10,6 @@ class TitleSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
