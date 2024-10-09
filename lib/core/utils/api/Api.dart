@@ -32,4 +32,11 @@ class Api {
         '$_baseUrl/competitions/$league/standings?season=$season&matchday=$matchday');
     return response.data;
   }
+
+  Future<Map<String, dynamic>> GetTeamMatches_fixtures(
+      {required String teamId}) async {
+    _dio.options.headers['X-Auth-Token'] = '5dfbb5c2edc9437585893bf0b74ed63a';
+    var response = await _dio.get('$_baseUrl/teams/$teamId/matches');
+    return response.data;
+  }
 }

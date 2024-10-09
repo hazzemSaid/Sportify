@@ -4,10 +4,6 @@ import 'package:sportify/features/Explore_news/presentation/view/screens/explore
 import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
 import 'package:sportify/features/MatchTabelDay/presentation/view/screens/match_table_screen.dart';
 import 'package:sportify/features/Profile/presentation/view/screens/profile_screen.dart';
-<<<<<<< HEAD
-import 'package:sportify/features/home/presentation/view/screens/explore_screen.dart';
-=======
->>>>>>> a348ed0819b3cf286394ad86b4fa1410ae0e8dfb
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});

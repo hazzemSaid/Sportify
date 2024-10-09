@@ -9,11 +9,6 @@ import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
 import 'package:sportify/features/Profile/presentation/view/widgets/CustomRow.dart';
 import 'package:sportify/features/Profile/presentation/view/widgets/ShowEditnameDiaolg.dart';
-<<<<<<< HEAD
-
-import '../widgets/CustomRow.dart';
-=======
->>>>>>> a348ed0819b3cf286394ad86b4fa1410ae0e8dfb
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

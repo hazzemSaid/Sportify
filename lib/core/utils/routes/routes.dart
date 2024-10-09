@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-import 'package:sportify/features/Fav_teams/presentation/view/screens/fav_football_team.dart';
-import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
->>>>>>> a348ed0819b3cf286394ad86b4fa1410ae0e8dfb
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_screen.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
 import 'package:sportify/features/Fav_teams/presentation/view/screens/fav_football_team.dart';
 import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
+import 'package:sportify/features/match_Fixtures/presentation/view/screens/matches_team.dart';
 import 'package:sportify/features/Home/presentation/view/widgets/bottom_nav_bar.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
-<<<<<<< HEAD
-=======
-import 'package:sportify/features/Home/presentation/view/widgets/bottom_nav_bar.dart';
-import 'package:sportify/features/home/presentation/view/screens/matches_team.dart';
->>>>>>> a348ed0819b3cf286394ad86b4fa1410ae0e8dfb
 
 class AppRoutes {
   static const String splash = '/';
