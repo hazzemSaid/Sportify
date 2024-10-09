@@ -8,7 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
 import 'package:sportify/features/Profile/presentation/view/widgets/ShowEditnameDiaolg.dart';
-import 'package:sportify/features/home/presentation/view/screens/profile_screen.dart'; // استيراد Cubit
+
+import '../widgets/CustomRow.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

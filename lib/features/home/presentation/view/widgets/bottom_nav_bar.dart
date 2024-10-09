@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
 import 'package:sportify/features/MatchTabelDay/presentation/view/screens/match_table_screen.dart';
+import 'package:sportify/features/Profile/presentation/view/screens/profile_screen.dart';
 import 'package:sportify/features/home/presentation/view/screens/explore_screen.dart';
-import 'package:sportify/features/home/presentation/view/screens/profile_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
