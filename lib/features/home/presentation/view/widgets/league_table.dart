@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/Home/data/model/Standing_League/standings_league/table.dart';
 
 class LeagueTable extends StatelessWidget {
@@ -49,67 +50,72 @@ class LeagueTable extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Row(
-                          children: [
-                            Text(
-                              "${team.position}. ",
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                            ),
-                            Expanded(
-                              child: Text(
-                                team.team?.name ?? "",
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.matchesTeam);
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            children: [
+                              Text(
+                                "${team.position}. ",
                                 style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
+                                    color: Colors.white, fontSize: 14),
                               ),
-                            ),
-                          ],
+                              Expanded(
+                                child: Text(
+                                  team.team?.name ?? "",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                          child: Center(
-                              child: Text("${team.playedGames}",
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14)))),
-                      Expanded(
-                          child: Center(
-                              child: Text("${team.won}",
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14)))),
-                      Expanded(
-                          child: Center(
-                              child: Text("${team.draw}",
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14)))),
-                      Expanded(
-                          child: Center(
-                              child: Text("${team.lost}",
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14)))),
-                      Expanded(
-                          child: Center(
-                              child: Text("${team.goalDifference}",
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14)))),
-                      Expanded(
-                          child: Center(
-                              child: Text("${team.goalDifference}",
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14)))),
-                      Expanded(
-                          child: Center(
-                              child: Text("${team.points}",
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14)))),
-                    ],
+                        Expanded(
+                            child: Center(
+                                child: Text("${team.playedGames}",
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14)))),
+                        Expanded(
+                            child: Center(
+                                child: Text("${team.won}",
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14)))),
+                        Expanded(
+                            child: Center(
+                                child: Text("${team.draw}",
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14)))),
+                        Expanded(
+                            child: Center(
+                                child: Text("${team.lost}",
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14)))),
+                        Expanded(
+                            child: Center(
+                                child: Text("${team.goalDifference}",
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14)))),
+                        Expanded(
+                            child: Center(
+                                child: Text("${team.goalDifference}",
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14)))),
+                        Expanded(
+                            child: Center(
+                                child: Text("${team.points}",
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14)))),
+                      ],
+                    ),
                   ),
                 ),
               );
