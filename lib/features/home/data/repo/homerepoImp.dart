@@ -20,7 +20,7 @@ class Homerepoimp implements HomeRepo {
         ),
       );
     } catch (e) {
-      return Left(Failure('Something went wrong'));
+      return Left(Failure(message: 'Something went wrong'));
     }
   }
 
@@ -32,7 +32,7 @@ class Homerepoimp implements HomeRepo {
         api.Getmatch_detailes(IdForMatch: IdForMatch),
       );
     } catch (e) {
-      return Left(Failure('Something went wrong'));
+      return Left(Failure(message: 'Something went wrong'));
     }
   }
 
@@ -48,7 +48,7 @@ class Homerepoimp implements HomeRepo {
         ),
       );
     } catch (e) {
-      return Left(Failure('Something went wrong'));
+      return Left(Failure(message: 'Something went wrong'));
     }
   }
 }

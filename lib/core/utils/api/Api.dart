@@ -56,4 +56,12 @@ class Api {
     print('response: $response');
     return response.data;
   }
+
+  //https://newsapi.org/v2/everything?q=Premier League Soccer&apiKey=80d8fe2259f5450694da5978fd0d6414
+  Future<Map<String, dynamic>> getNews() async {
+    Dio _dio = Dio();
+    var response = await _dio.get(
+        'https://newsapi.org/v2/everything?q=Premier League Soccer&apiKey=80d8fe2259f5450694da5978fd0d6414');
+    return response.data;
+  }
 }

@@ -16,7 +16,7 @@ class MatchFixturesImpo implements MatchFixturesRepo {
       // Assuming this returns Future<List<ModelMatchFixtures>>
       return (Right(fixtures));
     } catch (e) {
-      return (Left(Failure('Something went wrong')));
+      return (Left(Failure(message: 'Something went wrong')));
     }
   }
 
@@ -29,7 +29,7 @@ class MatchFixturesImpo implements MatchFixturesRepo {
       // Assuming this returns Future<List<ModelMatchFixtures>>
       return (Right(fixtures));
     } catch (e) {
-      return (Left(Failure('Something went wrong')));
+      return (Left(Failure(message: 'Something went wrong')));
     }
   }
 }
