@@ -10,6 +10,9 @@ import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/
 import 'package:sportify/features/Home/presentation/viewmodel/match_day/match_day_cubit.dart';
 import 'package:sportify/features/Home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
+import 'package:sportify/features/match_Fixtures/data/repo/match_fixtures_impo.dart';
+import 'package:sportify/features/match_Fixtures/data/upcoming/upcoming_cubit.dart';
+import 'package:sportify/features/match_Fixtures/presentation/viewmodel/finishedmatches/match_fixtures_cubit.dart';
 import 'package:sportify/firebase_options.dart';
 
 import 'core/utils/api/Api.dart';
@@ -61,7 +64,31 @@ class MyApp extends StatelessWidget {
                           ),
                     ),
                   ),
-                ))
+                )),
+        BlocProvider<MatchFixturesCubit>(
+          create: (context) => MatchFixturesCubit(
+            MatchFixturesImpo(
+              Api(
+                Dio(
+                    //next we solve the injection problem by using the get_it package
+
+                    ),
+              ),
+            ),
+          ),
+        ),
+        BlocProvider<UpcomingCubit>(
+          create: (context) => UpcomingCubit(
+            MatchFixturesImpo(
+              Api(
+                Dio(
+                    //next we solve the injection problem by using the get_it package
+
+                    ),
+              ),
+            ),
+          ),
+        )
       ],
       child: GetMaterialApp(
         theme: ThemeData(

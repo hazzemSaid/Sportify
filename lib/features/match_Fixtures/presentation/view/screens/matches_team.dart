@@ -1,67 +1,131 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sportify/features/match_Fixtures/data/upcoming/upcoming_cubit.dart';
+import 'package:sportify/features/match_Fixtures/presentation/viewmodel/finishedmatches/match_fixtures_cubit.dart';
 
-class Team {
-  final String name;
-  final String league;
-  final String logoPath;
+class TeamDetails extends StatelessWidget {
+  final int id;
+  final urlimage;
 
-  Team({
-    required this.name,
-    required this.league,
-    required this.logoPath,
-  });
-}
+  const TeamDetails({Key? key, required this.id, this.urlimage})
+      : super(key: key);
 
-class TeamLogo extends StatelessWidget {
-  final String logoPath;
-  final double size;
-
-  const TeamLogo({
-    Key? key,
-    required this.logoPath,
-    this.size = 80,
-  }) : super(key: key);
-
-  @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      logoPath,
-      width: size,
-      height: size,
-    );
-  }
-}
-
-class TeamInfo extends StatelessWidget {
-  final Team team;
-
-  const TeamInfo({
-    Key? key,
-    required this.team,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          team.name,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+    return Scaffold(
+      backgroundColor: const Color(0xff2C2C2C),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: urlimage,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  'Matches',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              BlocBuilder<MatchFixturesCubit, MatchFixturesState>(
+                builder: (context, state) {
+                  if (state is MatchFixturesError) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  }
+                  if (state is MatchFixturesLoaded) {
+                    final matches = state.matches;
+                    return MatchCard(
+                      date: matches?[0]['utcDate'] ?? 'Sat, 16 Feb, 2024',
+                      score: (matches?[0]['score']['fullTime']['home']
+                                  ?.toString() ??
+                              '0') +
+                          ' - ' +
+                          (matches?[0]['score']['fullTime']['away']
+                                  ?.toString() ??
+                              '0'),
+                      team1: matches?[0]['homeTeam']['shortName'] ?? 'Team 1',
+                      team2: matches?[0]['awayTeam']['shortName'] ?? 'Team 2',
+                      team1Logo: matches?[0]['homeTeam']['crest'] ??
+                          'assets/images/club_logo1.png',
+                      team2Logo: matches?[0]['awayTeam']['crest'] ??
+                          'assets/images/club_logo2.png',
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  'Upcoming Matches',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              BlocBuilder<UpcomingCubit, UpcomingState>(
+                builder: (context, state) {
+                  if (state is UpcomingError) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  }
+                  if (state is UpcomingLoaded) {
+                    final matches = state.matches;
+                    return MatchCard(
+                      date: matches?[1]['utcDate'] ?? 'Sat, 16 Feb, 2024',
+                      team1: matches?[1]['homeTeam']['shortName'] ?? 'Team 3',
+                      team2: matches?[1]['awayTeam']['shortName'] ?? 'Team 4',
+                      team1Logo: matches?[1]['homeTeam']['crest'] ??
+                          'assets/images/club_logo3.png',
+                      team2Logo: matches?[1]['awayTeam']['crest'] ??
+                          'assets/images/club_logo.png',
+                      score: (matches?[1]['score']['fullTime']['home']
+                                  ?.toString() ??
+                              '0') +
+                          ' - ' +
+                          (matches?[1]['score']['fullTime']['away']
+                                  ?.toString() ??
+                              '0'),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              )
+            ],
           ),
         ),
-        Text(
-          team.league,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -116,11 +180,10 @@ class MatchCard extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              const SizedBox(width: 10),
-              Image.asset(
-                team1Logo,
-                width: 28,
-                height: 28,
+              CachedNetworkImage(
+                imageUrl: team1Logo,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
               const SizedBox(width: 10),
               Container(
@@ -142,10 +205,10 @@ class MatchCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              Image.asset(
-                team2Logo,
-                width: 28,
-                height: 28,
+              CachedNetworkImage(
+                imageUrl: team2Logo,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
               const SizedBox(width: 10),
               Text(
@@ -167,18 +230,13 @@ class MatchCard extends StatelessWidget {
     );
   }
 }
-
+/*
 class MatchesTeam extends StatelessWidget {
-  const MatchesTeam({super.key});
+  final List<ModelMatchFixtures> fixtures;
+  const MatchesTeam({super.key, required this.fixtures});
 
   @override
   Widget build(BuildContext context) {
-    Team team = Team(
-      name: 'Man City',
-      league: 'Premier League',
-      logoPath: 'assets/images/Manchester_City.png',
-    );
-
     return Scaffold(
       backgroundColor: const Color(0xff2C2C2C),
       appBar: AppBar(
@@ -193,9 +251,9 @@ class MatchesTeam extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  TeamLogo(logoPath: team.logoPath),
+                  Image.network(fixtures[0].matches?[0].homeTeam?.crest ??
+                      'assets/images/Manchester_City.png'),
                   const SizedBox(width: 10),
-                  TeamInfo(team: team),
                 ],
               ),
               const SizedBox(height: 20),
@@ -211,13 +269,29 @@ class MatchesTeam extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const MatchCard(
-                date: 'Fri, 15 Feb, 2024',
-                score: '0 - 1',
-                team1: 'Team 1',
-                team2: 'Team 2',
-                team1Logo: 'assets/images/club_logo1.png',
-                team2Logo: 'assets/images/club_logo2.png',
+              MatchCard(
+                date: fixtures[0].matches?[0].utcDate ?? 'Sat, 16 Feb, 2024',
+                score: (fixtures[0]
+                            .matches?[0]
+                            .score
+                            ?.fullTime
+                            ?.home
+                            ?.toString() ??
+                        '0') +
+                    ' - ' +
+                    (fixtures[0]
+                            .matches?[0]
+                            .score
+                            ?.fullTime
+                            ?.away
+                            ?.toString() ??
+                        '0'),
+                team1: fixtures[0].matches?[0].homeTeam?.shortName ?? 'Team 1',
+                team2: fixtures[0].matches?[0].awayTeam?.shortName ?? 'Team 2',
+                team1Logo: fixtures[0].matches?[0].homeTeam?.crest ??
+                    'assets/images/club_logo1.png',
+                team2Logo: fixtures[0].matches?[0].awayTeam?.crest ??
+                    'assets/images/club_logo2.png',
               ),
               const SizedBox(height: 20),
               const Padding(
@@ -232,8 +306,8 @@ class MatchesTeam extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const MatchCard(
-                date: 'Sat, 16 Feb, 2024',
+              MatchCard(
+                date: fixtures[0].matches?[1].utcDate ?? 'Sat, 16 Feb, 2024',
                 team1: 'Team 3',
                 team2: 'Team 4',
                 team1Logo: 'assets/images/club_logo3.png',
@@ -246,3 +320,64 @@ class MatchesTeam extends StatelessWidget {
     );
   }
 }
+*/
+/*
+SingleChildScrollView(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Image.network(matches?[0].awayTeam?.crest ??
+                          'assets/images/Manchester_City.png'),
+                      const SizedBox(width: 10),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      'Matches',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  MatchCard(
+                    date: matches?[0].utcDate ?? 'Sat, 16 Feb, 2024',
+                    score: (matches?[0].score?.fullTime?.home?.toString() ??
+                            '0') +
+                        ' - ' +
+                        (matches?[0].score?.fullTime?.away?.toString() ?? '0'),
+                    team1: matches?[0].homeTeam?.shortName ?? 'Team 1',
+                    team2: matches?[0].awayTeam?.shortName ?? 'Team 2',
+                    team1Logo: matches?[0].homeTeam?.crest ??
+                        'assets/images/club_logo1.png',
+                    team2Logo: matches?[0].awayTeam?.crest ??
+                        'assets/images/club_logo2.png',
+                  ),
+                  const SizedBox(height: 20),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      'Upcoming Matches',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  MatchCard(
+                    date: matches?[1].utcDate ?? 'Sat, 16 Feb, 2024',
+                    team1: 'Team 3',
+                    team2: 'Team 4',
+                    team1Logo: 'assets/images/club_logo3.png',
+                    team2Logo: 'assets/images/club_logo.png',
+                  )
+                ],
+              )));*/

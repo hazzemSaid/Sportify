@@ -33,4 +33,6 @@ class Team extends Equatable {
 
   @override
   List<Object?> get props => [id, name, shortName, tla, crest];
+
+  get fixtures => null;
 }

@@ -13,7 +13,7 @@ class MatchFixturesInitial extends MatchFixturesState {}
 class MatchFixturesLoading extends MatchFixturesState {}
 
 class MatchFixturesLoaded extends MatchFixturesState {
-  final List<Match> matches;
+  final List<dynamic>? matches;
 
   const MatchFixturesLoaded({required this.matches});
 }

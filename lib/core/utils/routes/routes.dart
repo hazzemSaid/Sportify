@@ -3,7 +3,6 @@ import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_s
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
 import 'package:sportify/features/Fav_teams/presentation/view/screens/fav_football_team.dart';
 import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
-import 'package:sportify/features/match_Fixtures/presentation/view/screens/matches_team.dart';
 import 'package:sportify/features/Home/presentation/view/widgets/bottom_nav_bar.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
@@ -34,8 +33,7 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const BottomNavBar());
       case favfootballteam:
         return MaterialPageRoute(builder: (_) => const FavFootballTeam());
-      case matchesTeam:
-        return MaterialPageRoute(builder: (_) => const MatchesTeam());
+
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

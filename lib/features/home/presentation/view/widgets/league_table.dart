@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sportify/core/utils/routes/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sportify/features/Home/data/model/Standing_League/standings_league/table.dart';
+import 'package:sportify/features/match_Fixtures/data/upcoming/upcoming_cubit.dart';
+import 'package:sportify/features/match_Fixtures/presentation/view/screens/matches_team.dart';
+import 'package:sportify/features/match_Fixtures/presentation/viewmodel/finishedmatches/match_fixtures_cubit.dart';
 
 class LeagueTable extends StatelessWidget {
   final List<Tables> teams;
@@ -52,7 +55,21 @@ class LeagueTable extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.matchesTeam);
+                      print('Team Name: ${team.team?.crest}');
+                      BlocProvider.of<MatchFixturesCubit>(context)
+                          .getMatchFixtures(id: team.team?.id.toString() ?? "");
+                      BlocProvider.of<UpcomingCubit>(context).getMatchFixturesS(
+                          id: team.team?.id.toString() ?? "");
+
+                      //nav to team details
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TeamDetails(
+                              id: team.team?.id ?? 1,
+                              urlimage: team.team?.crest ?? ""),
+                        ),
+                      );
                     },
                     child: Row(
                       children: [

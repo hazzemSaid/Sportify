@@ -33,10 +33,27 @@ class Api {
     return response.data;
   }
 
-  Future<Map<String, dynamic>> GetTeamMatches_fixtures(
+  Future<Map<String, dynamic>> getTeamMatchesFixtures_Finished(
       {required String teamId}) async {
+    // Use a logging framework instead of print
     _dio.options.headers['X-Auth-Token'] = '5dfbb5c2edc9437585893bf0b74ed63a';
-    var response = await _dio.get('$_baseUrl/teams/$teamId/matches');
+    //{{url}}/v4/teams/65/matches
+    print('$_baseUrl/teams/$teamId/matches');
+    var response =
+        await _dio.get('$_baseUrl/teams/$teamId/matches/?status=FINISHED');
+    print('response: $response');
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> getTeamMatchesFixtures_UPcoming(
+      {required String teamId}) async {
+    // Use a logging framework instead of print
+    _dio.options.headers['X-Auth-Token'] = '5dfbb5c2edc9437585893bf0b74ed63a';
+    //{{url}}/v4/teams/65/matches
+    print('$_baseUrl/teams/$teamId/matches');
+    var response =
+        await _dio.get('$_baseUrl/teams/$teamId/matches/?status=SCHEDULED');
+    print('response: $response');
     return response.data;
   }
 }
