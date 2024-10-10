@@ -55,7 +55,6 @@ class LeagueTable extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
-                      print('Team Name: ${team.team?.crest}');
                       BlocProvider.of<MatchFixturesCubit>(context)
                           .getMatchFixtures(id: team.team?.id.toString() ?? "");
                       BlocProvider.of<UpcomingCubit>(context).getMatchFixturesS(
@@ -66,8 +65,8 @@ class LeagueTable extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => TeamDetails(
-                              id: team.team?.id ?? 1,
-                              urlimage: team.team?.crest ?? ""),
+                            id: team.team?.id ?? 1,
+                          ),
                         ),
                       );
                     },

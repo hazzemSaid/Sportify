@@ -6,10 +6,8 @@ import 'package:sportify/features/match_Fixtures/presentation/viewmodel/finished
 
 class TeamDetails extends StatelessWidget {
   final int id;
-  final urlimage;
 
-  const TeamDetails({Key? key, required this.id, this.urlimage})
-      : super(key: key);
+  const TeamDetails({Key? key, required this.id}) : super(key: key);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +25,7 @@ class TeamDetails extends StatelessWidget {
               Row(
                 children: [
                   CachedNetworkImage(
-                    imageUrl: urlimage,
+                    imageUrl: 'https://crests.football-data.org/$id.png',
                     placeholder: (context, url) => CircularProgressIndicator(),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
