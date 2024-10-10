@@ -22,7 +22,7 @@ class TopNewsCurd extends StatelessWidget {
             height: 130,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(image),
+                image: NetworkImage(image),
                 fit: BoxFit.cover,
               ),
             ),

@@ -28,7 +28,9 @@ class NewsCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(image),
+                image: image.isNotEmpty
+                    ? NetworkImage(image)
+                    : AssetImage('assets/placeholder.png') as ImageProvider,
               ),
             ),
           ),
