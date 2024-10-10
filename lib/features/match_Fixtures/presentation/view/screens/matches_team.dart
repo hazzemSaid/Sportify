@@ -25,11 +25,35 @@ class TeamDetails extends StatelessWidget {
               Row(
                 children: [
                   CachedNetworkImage(
+                    width: 80,
+                    height: 80,
                     imageUrl: 'https://crests.football-data.org/$id.png',
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   const SizedBox(width: 10),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Liverpool FC',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Primamer League',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               const SizedBox(height: 20),
@@ -171,19 +195,30 @@ class MatchCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                team1,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+              // Team 1 Name
+              Expanded(
+                flex: 1,
+                child: Text(
+                  team1,
+                  overflow: TextOverflow.ellipsis, // Adds the ellipsis
+                  maxLines: 1, // Ensures single line text
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
               ),
+              // Team 1 Logo
               CachedNetworkImage(
+                height: 35,
+                width: 35,
                 imageUrl: team1Logo,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               const SizedBox(width: 10),
+              // Score or Time
               Container(
                 height: 28,
                 width: 48,
@@ -203,17 +238,27 @@ class MatchCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
+              // Team 2 Logo
               CachedNetworkImage(
+                height: 35,
+                width: 35,
                 imageUrl: team2Logo,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               const SizedBox(width: 10),
-              Text(
-                team2,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+              // Team 2 Name
+              Expanded(
+                flex: 1,
+                child: Text(
+                  team2,
+                  overflow: TextOverflow.ellipsis, // Adds the ellipsis
+                  maxLines: 1, // Ensures single line text
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ],
@@ -228,6 +273,7 @@ class MatchCard extends StatelessWidget {
     );
   }
 }
+
 /*
 class MatchesTeam extends StatelessWidget {
   final List<ModelMatchFixtures> fixtures;
