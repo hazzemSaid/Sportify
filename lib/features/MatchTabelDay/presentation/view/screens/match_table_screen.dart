@@ -109,16 +109,6 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
                         }
 
                         endDate = startDate;
-                        /*  BlocProvider.of<MatchDayCubit>(context)
-                            .getMatchesbyDate(
-                          startDate:
-                              startDate.toIso8601String().split('T').first,
-                          dateTo: endDate
-                              .add(const Duration(days: 1))
-                              .toIso8601String()
-                              .split('T')
-                              .first,
-                        );*/
                       });
                     },
                     child: Container(
@@ -150,89 +140,101 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
               ),
             ),
             const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Container(
-                width: screenWidth,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.grey[800],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 6),
-                  child: DropdownButton<String>(
-                    value: selectedMatch,
-                    dropdownColor: Colors.grey[700],
-                    iconEnabledColor: Colors.white,
-                    isExpanded: true,
-                    icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                    items: [
-                      DropdownMenuItem<String>(
-                        value: "Select Match",
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/league_logo.png",
+            // Repeat the dropdown 4 times
+            Expanded(
+              child: ListView.builder(
+                itemCount: 4, // 4 dropdowns
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0, bottom: 15),
+                    child: Container(
+                      width: screenWidth,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[800],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 6),
+                        child: DropdownButton<String>(
+                          itemHeight: 60,
+                          value: selectedMatch,
+                          dropdownColor: Colors.grey[700],
+                          iconEnabledColor: Colors.white,
+                          isExpanded: true,
+                          icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                          items: [
+                            DropdownMenuItem<String>(
+                              value: "Select Match",
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/league_logo.png",
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text("League Name",
+                                      style: TextStyle(color: Colors.white)),
+                                ],
+                              ),
                             ),
-                            SizedBox(width: 8),
-                            Text("League Name",
-                                style: TextStyle(color: Colors.white)),
+                            ...matches.map((match) {
+                              String displayName = match['team1']! +
+                                  (match['team2']!.isNotEmpty
+                                      ? match['time']! + match['team2']!
+                                      : '');
+                              return DropdownMenuItem<String>(
+                                value: displayName,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        if (match['image1']!.isNotEmpty)
+                                          Image.asset(
+                                            match['image1']!,
+                                            width: 30,
+                                            height: 30,
+                                          ),
+                                        SizedBox(width: 8),
+                                        Text(match['team1']!,
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ],
+                                    ),
+                                    if (match['team2']!.isNotEmpty)
+                                      Text(match['time']!,
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    Row(
+                                      children: [
+                                        if (match['image2']!.isNotEmpty)
+                                          Image.asset(
+                                            match['image2']!,
+                                            width: 30,
+                                            height: 30,
+                                          ),
+                                        SizedBox(width: 8),
+                                        Text(match['team2']!,
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
                           ],
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {}
+                          },
                         ),
                       ),
-                      ...matches.map((match) {
-                        String displayName = match['team1']! +
-                            (match['team2']!.isNotEmpty
-                                ? match['time']! + match['team2']!
-                                : '');
-                        return DropdownMenuItem<String>(
-                          value: displayName,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  if (match['image1']!.isNotEmpty)
-                                    Image.asset(
-                                      match['image1']!,
-                                      width: 30,
-                                      height: 30,
-                                    ),
-                                  SizedBox(width: 8),
-                                  Text(match['team1']!,
-                                      style: TextStyle(color: Colors.white)),
-                                ],
-                              ),
-                              if (match['team2']!.isNotEmpty)
-                                Text(match['time']!,
-                                    style: TextStyle(color: Colors.white)),
-                              Row(
-                                children: [
-                                  if (match['image2']!.isNotEmpty)
-                                    Image.asset(
-                                      match['image2']!,
-                                      width: 30,
-                                      height: 30,
-                                    ),
-                                  SizedBox(width: 8),
-                                  Text(match['team2']!,
-                                      style: TextStyle(color: Colors.white)),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                    ],
-                    onChanged: (String? newValue) {
-                      if (newValue != null) {}
-                    },
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
             ),
-            const SizedBox(height: 15),
           ],
         ),
       ),

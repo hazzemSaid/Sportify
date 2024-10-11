@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
+import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/news_banner.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/news_card.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/title_section_explore.dart';
@@ -48,11 +50,15 @@ class _ExploreState extends State<Explore> {
                       title1: state.news['articles'][3]['title'],
                       image1: state.news['articles'][3]['urlToImage'],
                       subtitle1: state.news['articles'][3]['description'],
-                      onTap1: () {},
+                      onTap1: () {
+                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                      },
                       title2: state.news['articles'][2]['title'],
                       image2: state.news['articles'][2]['urlToImage'],
                       subtitle2: state.news['articles'][2]['description'],
-                      onTap2: () {},
+                      onTap2: () {
+                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                      },
                     ),
                     const SizedBox(height: 25),
                     Container(
@@ -83,21 +89,39 @@ class _ExploreState extends State<Explore> {
                       title: state.news['articles'][0]['title'] ?? 'No Title',
                       subtitle: state.news['articles'][0]['description'] ??
                           'No Description',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                      },
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 10),
                     TopNewsCurd(
                       image: state.news['articles'][1]['urlToImage'],
                       title: state.news['articles'][1]['title'] ?? 'No Title',
                       subtitle: state.news['articles'][1]['description'] ??
                           'No Description',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    TopNewsCurd(
+                      image: state.news['articles'][2]['urlToImage'],
+                      title: state.news['articles'][2]['title'] ?? 'No Title',
+                      subtitle: state.news['articles'][2]['description'] ??
+                          'No Description',
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                      },
                     ),
                     const SizedBox(height: 20),
                   ],
                 );
               }
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
+              );
             },
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_screen.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
+import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
 import 'package:sportify/features/Fav_teams/presentation/view/screens/fav_football_team.dart';
 import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
 import 'package:sportify/features/Home/presentation/view/widgets/bottom_nav_bar.dart';
@@ -16,6 +17,7 @@ class AppRoutes {
   static const String bottomNavBar = '/bottomNavBar';
   static const String favfootballteam = '/favfootballteam';
   static const String matchesTeam = '/matchesTeam';
+  static const String detailsScreen = '/detailsScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -33,6 +35,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const BottomNavBar());
       case favfootballteam:
         return MaterialPageRoute(builder: (_) => const FavFootballTeam());
+      case detailsScreen:
+        return MaterialPageRoute(builder: (_) => const DetailesNews());
 
       default:
         return MaterialPageRoute(

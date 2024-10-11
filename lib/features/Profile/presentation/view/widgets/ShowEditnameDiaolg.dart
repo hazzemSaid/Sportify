@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void showEditNameDialog({
   required BuildContext context,
   required String userName,
-  required Function onSaved,
+  required Function(String) onSaved, // Expect a function that takes a String
 }) {
   final TextEditingController _nameController =
       TextEditingController(text: userName);
@@ -32,11 +32,11 @@ void showEditNameDialog({
         actions: [
           TextButton(
             onPressed: () async {
-              onSaved();
-              // حفظ الاسم في SharedPreferences
+              final newName = _nameController.text; // Get the updated name
+              onSaved(newName); // Pass the updated name to the callback
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
-              await prefs.setString('userName', userName);
+              await prefs.setString('userName', newName); // Save the new name
               Navigator.of(context).pop();
             },
             child: const Text(
