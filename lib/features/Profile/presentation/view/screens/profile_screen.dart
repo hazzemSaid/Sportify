@@ -210,6 +210,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         (Route<dynamic> route) =>
                             false, // Remove all previous routes
                       );
+
+                      // Clear the user name and image from SharedPreferences
+                      prefs = await SharedPreferences.getInstance();
+                      await prefs.remove('userName');
+                      await prefs.remove('userImage');
                     },
                     icon: Icons.logout,
                     color: Colors.red,
