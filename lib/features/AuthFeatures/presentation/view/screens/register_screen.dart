@@ -214,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               print(email.text);
                               print(password.text);
                               BlocProvider.of<AuthCubit>(context)
-                                  .signInWithEmail(
+                                  .signUpWithEmail(
                                 emailAddress: email.text,
                                 password: password.text,
                               );
