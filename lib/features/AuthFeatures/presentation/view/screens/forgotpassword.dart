@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_screen.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildTextField.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/widgets/custom_button.dart';
 

@@ -237,7 +237,7 @@ class _TableMatchesState extends State<TableMatches> {
     return Column(
       children: matches.map((match) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 5.0),
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: _buildMatchRow(
             match['logoHome']!,
             match['nameHome']!,

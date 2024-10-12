@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // إضافة shared_preferences
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/Fav_teams/presentation/viewmodel/favteams_cubit.dart';
 
@@ -21,21 +24,64 @@ class Team {
     required this.logoPath,
     this.isFollowing = false,
   });
+
+  // تحويل الفريق إلى JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'logoPath': logoPath,
+      'isFollowing': isFollowing,
+    };
+  }
+
+  // إنشاء فريق من JSON
+  factory Team.fromJson(Map<String, dynamic> json) {
+    return Team(
+      name: json['name'],
+      logoPath: json['logoPath'],
+      isFollowing: json['isFollowing'] ?? false,
+    );
+  }
 }
 
 class _FavFootballTeamState extends State<FavFootballTeam> {
-  // List of teams
   final List<Team> teams = [];
+
+  @override
   void initState() {
     super.initState();
+    _loadFollowingTeams();
     context.read<FavteamsCubit>().getFavTeams();
   }
 
-  // Toggle follow/unfollow for a team
+  // تحميل الفرق المتابعة من SharedPreferences
+  Future<void> _loadFollowingTeams() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? savedTeams = prefs.getStringList('followingTeams');
+    if (savedTeams != null) {
+      setState(() {
+        for (var teamJson in savedTeams) {
+          teams.add(
+              Team.fromJson(Map<String, dynamic>.from(jsonDecode(teamJson))));
+        }
+      });
+    }
+  }
+
+  // تخزين الفرق المتابعة في SharedPreferences
+  Future<void> _saveFollowingTeams() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> savedTeams =
+        teams.map((team) => jsonEncode(team.toJson())).toList();
+    await prefs.setStringList('followingTeams', savedTeams);
+  }
+
+  // تغيير حالة المتابعة وحفظها
   void toggleFollow(Team team) {
     setState(() {
       team.isFollowing = !team.isFollowing;
     });
+    _saveFollowingTeams();
   }
 
   @override
@@ -50,8 +96,10 @@ class _FavFootballTeamState extends State<FavFootballTeam> {
           );
         }
         if (state is FavteamsLoaded) {
-          teams.clear();
-          teams.addAll(state.teams);
+          // إضافة الفرق من الـ Cubit إلى القائمة
+          if (teams.isEmpty) {
+            teams.addAll(state.teams);
+          }
           return Scaffold(
             backgroundColor: const Color(0xff353535),
             body: Column(
@@ -173,7 +221,7 @@ class _FavFootballTeamState extends State<FavFootballTeam> {
                       height: 45,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Color(0xff00A3B7),
+                        color: const Color(0xff00A3B7),
                         borderRadius: BorderRadius.circular(18),
                       ),
                       child: const Center(
