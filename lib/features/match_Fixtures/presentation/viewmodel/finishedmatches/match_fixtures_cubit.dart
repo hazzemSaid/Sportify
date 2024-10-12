@@ -11,11 +11,18 @@ class MatchFixturesCubit extends Cubit<MatchFixturesState> {
   void getMatchFixtures({required String id}) async {
     emit(MatchFixturesLoading());
     final fixtures = await matchFixturesImpo.getMatchFixtures_FINISHED(id: id);
-    print(fixtures);
     fixtures.fold((l) {
       emit(MatchFixturesError(message: 'Something went wrong'));
     }, (r) {
-      emit(MatchFixturesLoaded(matches: r['matches']));
+      // Check if 'matches' is a List and reverse it
+      if (r['matches'] != null && r['matches'] is List) {
+        final reversedMatches =
+            List.from(r['matches'].reversed); // Convert to list after reversing
+        emit(MatchFixturesLoaded(matches: reversedMatches));
+      } else {
+        emit(MatchFixturesError(
+            message: 'No matches found or invalid data format'));
+      }
     });
   }
 
