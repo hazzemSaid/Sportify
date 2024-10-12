@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
 import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
+import 'package:sportify/features/Explore_news/presentation/view/widget/buildNewscards.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/news_banner.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/news_card.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/title_section_explore.dart';
@@ -45,7 +46,7 @@ class _ExploreState extends State<Explore> {
                     const SizedBox(height: 25),
                     const TitleSectionExplore(title: 'FIFA WORLD CUP'),
                     const SizedBox(height: 10),
-                    _buildNewsCards(
+                    buildNewsCards(
                       title1: state.news['articles'][3]['title'],
                       image1: state.news['articles'][3]['urlToImage'],
                       subtitle1: state.news['articles'][3]['description'],
@@ -165,36 +166,6 @@ class _ExploreState extends State<Explore> {
           ),
         ),
       ),
-    );
-  }
-
-  Row _buildNewsCards({
-    String? title1,
-    String? image1,
-    String? subtitle1,
-    VoidCallback? onTap1,
-    String? title2,
-    String? image2,
-    String? subtitle2,
-    VoidCallback? onTap2,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        NewsCard(
-          title: title1 ?? 'No Title',
-          image: image1 ?? 'assets/images/image_news1.png',
-          subtitle: subtitle1 ?? 'No Description',
-          onTap: onTap1 ?? () {},
-        ),
-        const SizedBox(width: 15),
-        NewsCard(
-          title: title2 ?? 'No Title',
-          image: image2 ?? 'assets/images/image_news2.png',
-          subtitle: subtitle2 ?? 'No Description',
-          onTap: onTap2 ?? () {},
-        ),
-      ],
     );
   }
 }
