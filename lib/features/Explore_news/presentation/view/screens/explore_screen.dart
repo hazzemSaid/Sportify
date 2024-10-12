@@ -80,7 +80,11 @@ class _ExploreState extends State<Explore> {
                         ),
                       ),
                     ),
-                    const NewsBanner(),
+                    NewsBanner(
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                      },
+                    ),
                     const SizedBox(height: 25),
                     const TitleSectionExplore(title: 'TOP NEWS'),
                     const SizedBox(height: 10),

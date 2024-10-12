@@ -41,6 +41,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
     return days;
   }
 
+  bool isExpanded = false;
   String selectedDay = "Today";
   String selectedMatch = "Select Match"; // Dropdown initial value
   List<Map<String, String>> matches = [];
@@ -48,23 +49,6 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
   @override
   void initState() {
     super.initState();
-    // Add match data (make sure there are no duplicates in the team names)
-    matches = [
-      {
-        'team1': 'Team A',
-        'team2': 'Team B',
-        'time': '18:00',
-        'image1': 'assets/images/club_logo3.png',
-        'image2': 'assets/images/club_logo2.png',
-      },
-      {
-        'team1': 'Team C',
-        'team2': 'Team D',
-        'time': '20:00',
-        'image1': 'assets/images/club_logo.png',
-        'image2': 'assets/images/club_logo1.png',
-      },
-    ];
   }
 
   @override
@@ -78,6 +62,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
         padding: const EdgeInsets.only(
           top: 15,
           left: 8,
+          right: 8,
         ),
         child: Column(
           children: [
@@ -140,99 +125,78 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
               ),
             ),
             const SizedBox(height: 15),
-            // Repeat the dropdown 4 times
-            Expanded(
-              child: ListView.builder(
-                itemCount: 4, // 4 dropdowns
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8.0, bottom: 15),
-                    child: Container(
-                      width: screenWidth,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[800],
-                        borderRadius: BorderRadius.circular(10),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  isExpanded = !isExpanded; // تغيير حالة العرض عند الضغط
+                });
+              },
+              child: Container(
+                height: 40,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[700],
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    topLeft: Radius.circular(10),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/premier-league.png',
+                        height: 30,
+                        width: 30,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 6),
-                        child: DropdownButton<String>(
-                          itemHeight: 60,
-                          value: selectedMatch,
-                          dropdownColor: Colors.grey[700],
-                          iconEnabledColor: Colors.white,
-                          isExpanded: true,
-                          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                          items: [
-                            DropdownMenuItem<String>(
-                              value: "Select Match",
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/league_logo.png",
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text("League Name",
-                                      style: TextStyle(color: Colors.white)),
-                                ],
-                              ),
-                            ),
-                            ...matches.map((match) {
-                              String displayName = match['team1']! +
-                                  (match['team2']!.isNotEmpty
-                                      ? match['time']! + match['team2']!
-                                      : '');
-                              return DropdownMenuItem<String>(
-                                value: displayName,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        if (match['image1']!.isNotEmpty)
-                                          Image.asset(
-                                            match['image1']!,
-                                            width: 30,
-                                            height: 30,
-                                          ),
-                                        SizedBox(width: 8),
-                                        Text(match['team1']!,
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ],
-                                    ),
-                                    if (match['team2']!.isNotEmpty)
-                                      Text(match['time']!,
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    Row(
-                                      children: [
-                                        if (match['image2']!.isNotEmpty)
-                                          Image.asset(
-                                            match['image2']!,
-                                            width: 30,
-                                            height: 30,
-                                          ),
-                                        SizedBox(width: 8),
-                                        Text(match['team2']!,
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          ],
-                          onChanged: (String? newValue) {
-                            if (newValue != null) {}
-                          },
-                        ),
+                      const SizedBox(width: 5),
+                      const Text(
+                        'League Name',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      const Spacer(),
+                      const Icon(
+                        Icons.keyboard_arrow_down_outlined,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: isExpanded,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[700],
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        'Team 1',
+                        style: TextStyle(color: Colors.white), // لون النص
                       ),
                     ),
-                  );
-                },
+                    ListTile(
+                      title: Text(
+                        'Team 2',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(
+                        'Team 3',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
