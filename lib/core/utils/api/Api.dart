@@ -64,4 +64,12 @@ class Api {
         'https://newsapi.org/v2/everything?q=Premier League Soccer&apiKey=80d8fe2259f5450694da5978fd0d6414');
     return response.data;
   }
+
+  //{{url}}/v4/teams?limit=200&offset=100
+  Future<Map<String, dynamic>> getTeams() async {
+    _dio.options.headers['X-Auth-Token'] = '5dfbb5c2edc9437585893bf0b74ed63a';
+    var response = await _dio.get('$_baseUrl/teams?limit=200&offset=100');
+    print('response: $response');
+    return response.data;
+  }
 }
