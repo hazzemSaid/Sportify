@@ -35,8 +35,6 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const BottomNavBar());
       case favfootballteam:
         return MaterialPageRoute(builder: (_) => const FavFootballTeam());
-      case detailsScreen:
-        return MaterialPageRoute(builder: (_) => const DetailesNews());
 
       default:
         return MaterialPageRoute(

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:sportify/features/Detailes_News/presentation/view/widgets/buildBackButton.dart';
 import 'package:sportify/features/Detailes_News/presentation/view/widgets/buildContent.dart';
-import 'package:sportify/features/Detailes_News/presentation/view/widgets/buildDescriptionText.dart';
-import 'package:sportify/features/Detailes_News/presentation/view/widgets/buildImageBackground.dart';
 
 import '../widgets/buildHeader.dart';
 
 class DetailesNews extends StatefulWidget {
-  const DetailesNews({super.key});
+  final String imageurl;
+  final String description;
+
+  const DetailesNews(
+      {super.key, required this.imageurl, required this.description});
 
   @override
   State<DetailesNews> createState() => _DetailesNewsState();
@@ -21,10 +22,13 @@ class _DetailesNewsState extends State<DetailesNews> {
       body: Column(
         children: [
           buildHeader(
+            imageurl: widget.imageurl,
             context: context,
           ),
           Expanded(
-            child: buildContent(),
+            child: buildContent(
+              description: widget.description,
+            ),
           ),
         ],
       ),

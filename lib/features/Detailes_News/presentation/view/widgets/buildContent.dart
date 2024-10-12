@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sportify/features/Detailes_News/presentation/view/widgets/buildDescriptionText.dart';
 
-Widget buildContent() {
+Widget buildContent({
+  required String description,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8.0),
     child: Column(
@@ -16,7 +18,10 @@ Widget buildContent() {
           ),
         ),
         const Divider(color: Colors.grey, thickness: 0.2),
-        Expanded(child: buildDescriptionText()),
+        Expanded(
+            child: buildDescriptionText(
+          description: description,
+        )),
       ],
     ),
   );
