@@ -9,6 +9,8 @@ import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
 import 'package:sportify/features/Explore_news/data/repo/explore_repo_impo.dart';
 import 'package:sportify/features/Explore_news/presentation/viewmodel/news_cubit.dart';
+import 'package:sportify/features/Fav_teams/data/repo/favteamrepoimp.dart';
+import 'package:sportify/features/Fav_teams/presentation/viewmodel/favteams_cubit.dart';
 import 'package:sportify/features/Home/presentation/viewmodel/match_day/match_day_cubit.dart';
 import 'package:sportify/features/Home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
@@ -100,6 +102,15 @@ class MyApp extends StatelessWidget {
                   ),
             ),
           )),
+        ),
+        BlocProvider<FavteamsCubit>(
+          create: (context) => FavteamsCubit(
+            repo: Favteamrepoimp(
+              api: Api(
+                Dio(),
+              ),
+            ),
+          ),
         ),
       ],
       child: GetMaterialApp(

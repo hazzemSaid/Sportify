@@ -1,6 +1,10 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
-  "cSpell.words": ["favfootballteam", "Matchesbydate"],
+  "cSpell.words": [
+    "favfootballteam",
+    "Favteamrepoimp",
+    "Matchesbydate"
+  ],
   "java.configuration.updateBuildConfiguration": "interactive",
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

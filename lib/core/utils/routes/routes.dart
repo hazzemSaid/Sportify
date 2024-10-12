@@ -18,7 +18,6 @@ class AppRoutes {
   static const String bottomNavBar = '/bottomNavBar';
   static const String favfootballteam = '/favfootballteam';
   static const String matchesTeam = '/matchesTeam';
-  static const String detailsScreen = '/detailsScreen';
   static const String forgotPassword = '/forgotPassword';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -37,11 +36,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const BottomNavBar());
       case favfootballteam:
         return MaterialPageRoute(builder: (_) => const FavFootballTeam());
-      case detailsScreen:
-        return MaterialPageRoute(builder: (_) => const DetailesNews());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForGotPassword());
-
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

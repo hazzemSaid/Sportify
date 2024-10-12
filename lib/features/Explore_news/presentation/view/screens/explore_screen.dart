@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
 import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
+import 'package:sportify/features/Explore_news/presentation/view/widget/buildNewscards.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/news_banner.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/news_card.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/title_section_explore.dart';
@@ -46,18 +47,34 @@ class _ExploreState extends State<Explore> {
                     const SizedBox(height: 25),
                     const TitleSectionExplore(title: 'FIFA WORLD CUP'),
                     const SizedBox(height: 10),
-                    _buildNewsCards(
+                    buildNewsCards(
                       title1: state.news['articles'][3]['title'],
                       image1: state.news['articles'][3]['urlToImage'],
                       subtitle1: state.news['articles'][3]['description'],
                       onTap1: () {
-                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailesNews(
+                                      imageurl: state.news['articles'][3]
+                                          ['urlToImage'],
+                                      description: state.news['articles'][3]
+                                          ['description'],
+                                    )));
                       },
                       title2: state.news['articles'][2]['title'],
                       image2: state.news['articles'][2]['urlToImage'],
                       subtitle2: state.news['articles'][2]['description'],
                       onTap2: () {
-                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailesNews(
+                                      imageurl: state.news['articles'][2]
+                                          ['urlToImage'],
+                                      description: state.news['articles'][2]
+                                          ['description'],
+                                    )));
                       },
                     ),
                     const SizedBox(height: 25),
@@ -82,7 +99,7 @@ class _ExploreState extends State<Explore> {
                     ),
                     NewsBanner(
                       onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                        //
                       },
                     ),
                     const SizedBox(height: 25),
@@ -94,7 +111,15 @@ class _ExploreState extends State<Explore> {
                       subtitle: state.news['articles'][0]['description'] ??
                           'No Description',
                       onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailesNews(
+                                      imageurl: state.news['articles'][0]
+                                          ['urlToImage'],
+                                      description: state.news['articles'][0]
+                                          ['description'],
+                                    )));
                       },
                     ),
                     const SizedBox(height: 10),
@@ -104,7 +129,15 @@ class _ExploreState extends State<Explore> {
                       subtitle: state.news['articles'][1]['description'] ??
                           'No Description',
                       onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailesNews(
+                                      imageurl: state.news['articles'][1]
+                                          ['urlToImage'],
+                                      description: state.news['articles'][1]
+                                          ['description'],
+                                    )));
                       },
                     ),
                     const SizedBox(height: 10),
@@ -114,7 +147,15 @@ class _ExploreState extends State<Explore> {
                       subtitle: state.news['articles'][2]['description'] ??
                           'No Description',
                       onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.detailsScreen);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailesNews(
+                                      imageurl: state.news['articles'][2]
+                                          ['urlToImage'],
+                                      description: state.news['articles'][2]
+                                          ['description'],
+                                    )));
                       },
                     ),
                     const SizedBox(height: 20),
@@ -130,36 +171,6 @@ class _ExploreState extends State<Explore> {
           ),
         ),
       ),
-    );
-  }
-
-  Row _buildNewsCards({
-    String? title1,
-    String? image1,
-    String? subtitle1,
-    VoidCallback? onTap1,
-    String? title2,
-    String? image2,
-    String? subtitle2,
-    VoidCallback? onTap2,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        NewsCard(
-          title: title1 ?? 'No Title',
-          image: image1 ?? 'assets/images/image_news1.png',
-          subtitle: subtitle1 ?? 'No Description',
-          onTap: onTap1 ?? () {},
-        ),
-        const SizedBox(width: 15),
-        NewsCard(
-          title: title2 ?? 'No Title',
-          image: image2 ?? 'assets/images/image_news2.png',
-          subtitle: subtitle2 ?? 'No Description',
-          onTap: onTap2 ?? () {},
-        ),
-      ],
     );
   }
 }
