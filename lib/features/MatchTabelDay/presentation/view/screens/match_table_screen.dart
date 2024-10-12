@@ -177,10 +177,9 @@ class _TableMatchesState extends State<TableMatches> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.grey[700],
-        borderRadius: BorderRadius.circular(
-          10,
-          // topRight: Radius.circular(10),
-          // topLeft: Radius.circular(10),
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(10),
+          topLeft: Radius.circular(10),
         ),
       ),
       child: Padding(
@@ -205,10 +204,9 @@ class _TableMatchesState extends State<TableMatches> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[700],
-        borderRadius: BorderRadius.circular(
-          10,
-          // bottomLeft: Radius.circular(10),
-          // bottomRight: Radius.circular(10),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
         ),
       ),
       child: Padding(
@@ -257,7 +255,17 @@ class _TableMatchesState extends State<TableMatches> {
       children: [
         _buildClubInfo(logoHome, nameHome),
         const Spacer(flex: 1),
-        const Text('vs', style: TextStyle(color: Colors.white, fontSize: 16)),
+        Container(
+            width: 50,
+            height: 25,
+            decoration: BoxDecoration(
+              color: Colors.grey[800],
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: const Center(
+              child: Text('15:00',
+                  style: TextStyle(color: Colors.white, fontSize: 16)),
+            )),
         const Spacer(flex: 1),
         _buildClubInfo(logoAway, nameAway),
       ],
