@@ -10,61 +10,49 @@ class MatchTableScreen extends StatefulWidget {
 }
 
 class _MatchTableScreenState extends State<MatchTableScreen> {
+  String selectedDay = "Today";
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _fetchMatchesForToday();
+  }
+
+  void _fetchMatchesForToday() {
+    final today = DateTime.now().toIso8601String().split('T').first;
     BlocProvider.of<MatchDayCubit>(context).getMatchesbyDate(
-      startDate: DateTime.now().toIso8601String().split('T').first,
-      dateTo: DateTime.now().toIso8601String().split('T').first,
+      startDate: today,
+      dateTo: today,
     );
   }
 
-  // Generate dynamic days based on current day
-  List<String> getDaysAndDatesOfWeek() {
-    DateTime today = DateTime.now();
-    List<String> days = [];
-
-    for (int i = -1; i <= 7; i++) {
-      DateTime day = today.add(Duration(days: i));
-      String formattedDay = DateFormat('EEE').format(day);
-      String formattedMonth = DateFormat('MMM').format(day);
-      String dayLabel = i == -1
-          ? 'Yesterday'
-          : i == 0
-              ? 'Today'
-              : i == 1
-                  ? 'Tomorrow'
-                  : '$formattedDay ${day.day} $formattedMonth';
-      days.add(dayLabel);
-    }
-
-    return days;
+  List<String> _getDaysAndDatesOfWeek() {
+    final today = DateTime.now();
+    return List.generate(9, (index) {
+      DateTime day = today.add(Duration(days: index - 1));
+      return _formatDay(day, index - 1);
+    });
   }
 
-  String selectedDay = "Today";
-  String selectedMatch = "Select Match"; // Dropdown initial value
-  List<Map<String, String>> matches = [];
+  String _formatDay(DateTime day, int offset) {
+    String formattedDay = DateFormat('EEE').format(day);
+    String formattedMonth = DateFormat('MMM').format(day);
+    switch (offset) {
+      case -1:
+        return 'Yesterday';
+      case 0:
+        return 'Today';
+      case 1:
+        return 'Tomorrow';
+      default:
+        return '$formattedDay ${day.day} $formattedMonth';
+    }
+  }
 
-  @override
-  void initState() {
-    super.initState();
-    // Add match data (make sure there are no duplicates in the team names)
-    matches = [
-      {
-        'team1': 'Team A',
-        'team2': 'Team B',
-        'time': '18:00',
-        'image1': 'assets/images/club_logo3.png',
-        'image2': 'assets/images/club_logo2.png',
-      },
-      {
-        'team1': 'Team C',
-        'team2': 'Team D',
-        'time': '20:00',
-        'image1': 'assets/images/club_logo.png',
-        'image2': 'assets/images/club_logo1.png',
-      },
-    ];
+  void _onDaySelected(String day) {
+    setState(() {
+      selectedDay = day;
+    });
   }
 
   @override
@@ -75,169 +63,230 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
       backgroundColor: const Color(0xff2C2C2C),
       appBar: const CustomAppBar(),
       body: Padding(
-        padding: const EdgeInsets.only(
-          top: 15,
-          left: 8,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildDaySelector(screenWidth),
+              const SizedBox(height: 15),
+              _buildLeagueTables(),
+            ],
+          ),
         ),
-        child: Column(
+      ),
+    );
+  }
+
+  Widget _buildDaySelector(double screenWidth) {
+    return Container(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: _getDaysAndDatesOfWeek().length,
+        itemBuilder: (context, index) {
+          String day = _getDaysAndDatesOfWeek()[index];
+          return GestureDetector(
+            onTap: () => _onDaySelected(day),
+            child: _buildDayChip(day, screenWidth),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildDayChip(String day, double screenWidth) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 3),
+      padding:
+          EdgeInsets.symmetric(vertical: 10, horizontal: screenWidth * 0.05),
+      decoration: BoxDecoration(
+        color: selectedDay == day ? Colors.white : Colors.grey[700],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(
+          day,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: selectedDay == day ? Colors.black : Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLeagueTables() {
+    const leagues = [
+      {'name': 'Premier League', 'logo': 'assets/images/premier-league.png'},
+      {'name': 'La Liga', 'logo': 'assets/images/la_liga.png'},
+      {'name': 'Bundesliga', 'logo': 'assets/images/bundesliga.png'},
+      {'name': 'Serie A', 'logo': 'assets/images/serie_a.png'},
+      {'name': 'Ligue 1', 'logo': 'assets/images/ligue_1.png'},
+    ];
+
+    return Column(
+      children: leagues.map((league) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: TableMatches(
+            leagueName: league['name']!,
+            logoLeague: league['logo']!,
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+class TableMatches extends StatefulWidget {
+  const TableMatches(
+      {super.key, required this.leagueName, required this.logoLeague});
+
+  final String leagueName;
+  final String logoLeague;
+
+  @override
+  State<TableMatches> createState() => _TableMatchesState();
+}
+
+class _TableMatchesState extends State<TableMatches> {
+  bool isExpanded = false;
+
+  void _toggleExpansion() {
+    setState(() {
+      isExpanded = !isExpanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: _toggleExpansion,
+          child: _buildLeagueHeader(),
+        ),
+        if (isExpanded) _buildMatchDetails(),
+      ],
+    );
+  }
+
+  Widget _buildLeagueHeader() {
+    return Container(
+      height: 40,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.grey[700],
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(10),
+          topLeft: Radius.circular(10),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
           children: [
-            Container(
-              height: 50,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: getDaysAndDatesOfWeek().length,
-                itemBuilder: (context, index) {
-                  String day = getDaysAndDatesOfWeek()[index];
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedDay = day;
-                        DateTime today = DateTime.now();
-                        DateTime startDate;
-                        DateTime endDate;
-
-                        if (day.contains("Yesterday")) {
-                          startDate = today.subtract(const Duration(days: 1));
-                        } else if (day.contains("Today")) {
-                          startDate = today;
-                        } else if (day.contains("Tomorrow")) {
-                          startDate = today.add(const Duration(days: 1));
-                        } else {
-                          int daysToAdd = getDaysAndDatesOfWeek().indexOf(day) -
-                              getDaysAndDatesOfWeek().indexOf("Today");
-                          startDate = today.add(Duration(days: daysToAdd));
-                        }
-
-                        endDate = startDate;
-                      });
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 3),
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: screenWidth * 0.05,
-                      ),
-                      decoration: BoxDecoration(
-                        color: selectedDay == day
-                            ? Colors.white
-                            : Colors.grey[700],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          day,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: selectedDay == day
-                                ? Colors.black
-                                : Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+            Image.asset(widget.logoLeague, height: 30, width: 30),
+            const SizedBox(width: 5),
+            Text(
+              widget.leagueName,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
-            const SizedBox(height: 15),
-            // Repeat the dropdown 4 times
-            Expanded(
-              child: ListView.builder(
-                itemCount: 4, // 4 dropdowns
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8.0, bottom: 15),
-                    child: Container(
-                      width: screenWidth,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[800],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 6),
-                        child: DropdownButton<String>(
-                          itemHeight: 60,
-                          value: selectedMatch,
-                          dropdownColor: Colors.grey[700],
-                          iconEnabledColor: Colors.white,
-                          isExpanded: true,
-                          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                          items: [
-                            DropdownMenuItem<String>(
-                              value: "Select Match",
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/league_logo.png",
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text("League Name",
-                                      style: TextStyle(color: Colors.white)),
-                                ],
-                              ),
-                            ),
-                            ...matches.map((match) {
-                              String displayName = match['team1']! +
-                                  (match['team2']!.isNotEmpty
-                                      ? match['time']! + match['team2']!
-                                      : '');
-                              return DropdownMenuItem<String>(
-                                value: displayName,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        if (match['image1']!.isNotEmpty)
-                                          Image.asset(
-                                            match['image1']!,
-                                            width: 30,
-                                            height: 30,
-                                          ),
-                                        SizedBox(width: 8),
-                                        Text(match['team1']!,
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ],
-                                    ),
-                                    if (match['team2']!.isNotEmpty)
-                                      Text(match['time']!,
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    Row(
-                                      children: [
-                                        if (match['image2']!.isNotEmpty)
-                                          Image.asset(
-                                            match['image2']!,
-                                            width: 30,
-                                            height: 30,
-                                          ),
-                                        SizedBox(width: 8),
-                                        Text(match['team2']!,
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          ],
-                          onChanged: (String? newValue) {
-                            if (newValue != null) {}
-                          },
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+            const Spacer(),
+            const Icon(Icons.keyboard_arrow_down_outlined, color: Colors.white),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildMatchDetails() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[700],
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: _buildMatchList(),
+      ),
+    );
+  }
+
+  Widget _buildMatchList() {
+    // قائمة الفرق
+    final List<Map<String, String>> matches = [
+      {
+        'logoHome': 'assets/images/club_logo2.png',
+        'nameHome': 'Liverpool FC',
+        'logoAway': 'assets/images/club_logo.png',
+        'nameAway': 'Chelsea FC',
+      },
+      {
+        'logoHome': 'assets/images/club_logo3.png',
+        'nameHome': 'Manchester United',
+        'logoAway': 'assets/images/club_logo2.png',
+        'nameAway': 'Arsenal',
+      },
+      // يمكنك إضافة المزيد من المباريات هنا
+    ];
+
+    return Column(
+      children: matches.map((match) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 5.0),
+          child: _buildMatchRow(
+            match['logoHome']!,
+            match['nameHome']!,
+            match['logoAway']!,
+            match['nameAway']!,
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildMatchRow(
+      String logoHome, String nameHome, String logoAway, String nameAway) {
+    return Row(
+      children: [
+        _buildClubInfo(logoHome, nameHome),
+        const Spacer(flex: 1),
+        Container(
+            width: 50,
+            height: 25,
+            decoration: BoxDecoration(
+              color: Colors.grey[800],
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: const Center(
+              child: Text('15:00',
+                  style: TextStyle(color: Colors.white, fontSize: 16)),
+            )),
+        const Spacer(flex: 1),
+        _buildClubInfo(logoAway, nameAway),
+      ],
+    );
+  }
+
+  Widget _buildClubInfo(String logoPath, String clubName) {
+    return Row(
+      children: [
+        Image.asset(logoPath, height: 25, width: 25),
+        const SizedBox(width: 5),
+        SizedBox(
+          width: 90,
+          child: Text(
+            clubName,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        ),
+      ],
     );
   }
 }

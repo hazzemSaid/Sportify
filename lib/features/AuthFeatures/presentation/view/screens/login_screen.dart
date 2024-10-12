@@ -119,15 +119,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         const SizedBox(height: 15),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Flexible(
-                              child: Text(
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.forgotPassword);
+                              },
+                              child: const Text(
                                 'Forgot your password?',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  decoration: TextDecoration.underline,
                                 ),
                               ),
                             ),

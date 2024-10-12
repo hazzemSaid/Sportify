@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sportify/features/AuthFeatures/presentation/view/screens/forgotpassword.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_screen.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
 import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
@@ -17,7 +18,7 @@ class AppRoutes {
   static const String bottomNavBar = '/bottomNavBar';
   static const String favfootballteam = '/favfootballteam';
   static const String matchesTeam = '/matchesTeam';
-  static const String detailsScreen = '/detailsScreen';
+  static const String forgotPassword = '/forgotPassword';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -35,7 +36,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const BottomNavBar());
       case favfootballteam:
         return MaterialPageRoute(builder: (_) => const FavFootballTeam());
-
+      case forgotPassword:
+        return MaterialPageRoute(builder: (_) => const ForGotPassword());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

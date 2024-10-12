@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
 import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/buildNewscards.dart';
@@ -96,7 +97,11 @@ class _ExploreState extends State<Explore> {
                         ),
                       ),
                     ),
-                    const NewsBanner(),
+                    NewsBanner(
+                      onTap: () {
+                        //
+                      },
+                    ),
                     const SizedBox(height: 25),
                     const TitleSectionExplore(title: 'TOP NEWS'),
                     const SizedBox(height: 10),
