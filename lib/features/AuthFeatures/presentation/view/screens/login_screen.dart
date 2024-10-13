@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         buildPasswordField(
                           password: password,
                           isObscured: _isObscured,
-                          onpressedF: () {
+                          onPressed: () {
                             setState(() {
                               _isObscured = !_isObscured;
                             });

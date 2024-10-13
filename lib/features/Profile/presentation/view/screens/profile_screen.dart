@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -194,27 +193,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   CustomRow(
                     title: 'Log out',
                     onPressed: () async {
-                      await context
-                          .read<AuthCubit>()
-                          .logout(); // Ensure logout is complete
-                      // Reset login status in SharedPreferences
+                      await context.read<AuthCubit>().logout();
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                       await prefs.setBool('isLoggedIn', false);
-
-                      // Clear the navigation stack and navigate to login screen
                       Navigator.pushNamedAndRemoveUntil(
                         context,
-                        AppRoutes
-                            .loginScreen, // Ensure this points to your login screen
-                        (Route<dynamic> route) =>
-                            false, // Remove all previous routes
+                        AppRoutes.loginScreen,
+                        (Route<dynamic> route) => false,
                       );
 
-                      // Clear the user name and image from SharedPreferences
-                      prefs = await SharedPreferences.getInstance();
-                      await prefs.remove('userName');
-                      await prefs.remove('userImage');
+                      prefs.remove('userName');
+                      prefs.remove('userImage');
                     },
                     icon: Icons.logout,
                     color: Colors.red,

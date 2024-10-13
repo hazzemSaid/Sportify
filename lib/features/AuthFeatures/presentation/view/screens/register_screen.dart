@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildPasswordField.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildSocialButton.dart';
@@ -181,7 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildPasswordField(
                           password: password,
                           isObscured: _isObscured,
-                          onpressedF: () {
+                          onPressed: () {
                             setState(() {
                               _isObscured = !_isObscured;
                             });
@@ -217,7 +218,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   .signUpWithEmail(
                                 emailAddress: email.text,
                                 password: password.text,
-                              );
+                              )
+                                  .then((_) async {
+                                final SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                String fullName =
+                                    '${firstname.text} ${lastname.text}';
+                                await prefs.setString('userName', fullName);
+                              });
                             }
                           },
                           text: "Register",

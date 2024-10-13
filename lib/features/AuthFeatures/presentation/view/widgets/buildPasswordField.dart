@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget buildPasswordField({
   required TextEditingController password,
   required bool isObscured,
-  required VoidCallback onpressedF,
+  required VoidCallback onPressed,
 }) {
   return TextFormField(
     controller: password,
@@ -35,7 +35,7 @@ Widget buildPasswordField({
           isObscured ? Icons.visibility_off : Icons.visibility,
           color: Colors.grey,
         ),
-        onPressed: onpressedF,
+        onPressed: onPressed,
       ),
     ),
   );

@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildTextField.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/widgets/custom_button.dart';
 
@@ -15,6 +19,25 @@ class _ForGotPasswordState extends State<ForGotPassword> {
 
   final _formForGotPasswordKey = GlobalKey<FormState>();
   bool rememberPassword = true;
+
+  resetPassword() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: email.text.trim());
+      // Show success message
+      Get.snackbar('Check your email', 'Password reset link sent',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    } on FirebaseAuthException catch (e) {
+      // Display error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? 'An error occurred'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +85,10 @@ class _ForGotPasswordState extends State<ForGotPassword> {
                       width: double.infinity,
                       child: CustomButton(
                         onPressed: () {
-                          if (_formForGotPasswordKey.currentState!
-                              .validate()) {}
+                          if (_formForGotPasswordKey.currentState!.validate()) {
+                            resetPassword();
+                            Navigator.pop(context);
+                          }
                         },
                         text: "Reset Password",
                       ),
