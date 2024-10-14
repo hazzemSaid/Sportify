@@ -25,11 +25,11 @@
 
 ### Explore Screen
 
-<img src="assets/images/exlore.png" alt="Profile Screen" width="400"/>
+<img src="assets/images/exlore.png" alt="explore Screen" width="400"/>
 
 ### Favorite Team Screen
 
-<img src="assets/images/FavTeam.png" alt="Profile Screen" width="400"/>
+<img src="assets/images/FavTeam.png" alt="FavTeam Screen" width="400"/>
 
 ## Features
 
