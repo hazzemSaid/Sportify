@@ -1,39 +1,44 @@
 # Sportify
 
-**Sportify** is a mobile application developed as a final project for the Ministry of Communications and Information Technology. It aims to enhance user engagement in sports activities through an intuitive and seamless interface.
+**Sportify** is a mobile application developed as part of a final project for the Ministry of Communications and Information Technology. The app is designed to enhance user engagement in sports by providing real-time information, league standings, match updates, and personalized content in an intuitive and seamless interface.
 
 ## Screenshots
 
 ### Onboarding Screens
 
-_Onboarding Screen 1_  
-<img src="assets/images/onboarding1_screen.png" alt="Onboarding Screen 1" width="400"/>
-
-_Onboarding Screen 2_  
-<img src="assets/images/onboarding2_screen.png" alt="Onboarding Screen 2" width="400"/>
-
-_Onboarding Screen 3_  
-<img src="assets/images/onboarding3_screen.png" alt="Onboarding Screen 3" width="400"/>
+<img src="assets/images/onboarding.png" alt="Onboarding Screen 1" width="250"/>
 
 ### Authentication Screens
 
-_Login Screen_  
-<img src="assets/images/login&register.png" alt="Login Screen" width="400"/>
+<img src="assets/images/login&register.png" alt="Login Screen" width="300"/>
 
-_Home Screen_  
-<img src="assets/images/home_screen.png" alt="Home Screen" width="400"/>
+### Home Screen
 
-_Match Table Screen_  
-<img src="assets/images/match_table.png" alt="Match Table Screen" width="500"/>
+<img src="assets/images/home_screen.png" alt="Home Screen" width="300"/>
 
-_Profile Screen_  
-<img src="assets/images/profile_screen.png" alt="Profile Screen" width="500"/>
+<!-- ### Match Table Screen
+<img src="assets/images/match_table.png" alt="Match Table Screen" width="400"/> -->
+
+### Profile Screen
+
+<img src="assets/images/profile.png" alt="Profile Screen" width="400"/>
+
+### Explore Screen
+
+<img src="assets/images/exlore.png" alt="Profile Screen" width="400"/>
+
+### Favorite Team Screen
+
+<img src="assets/images/FavTeam.png" alt="Profile Screen" width="400"/>
 
 ## Features
 
-- User-friendly onboarding experience
-- Secure login and registration
-- [Add more features here]
+- **User-Friendly Onboarding**: A simple, clear, and engaging onboarding experience to guide users through the app's main features.
+- **Secure Authentication**: Register and log in with secure credentials, ensuring user data is protected.
+- **Live Match Updates**: Stay updated with real-time scores and match schedules for various leagues.
+- **League Standings**: View up-to-date league tables, including your favorite teams.
+- **Favorite Teams**: Follow your favorite teams and get personalized content, updates, and match notifications.
+- **Responsive UI**: A highly responsive design that adapts to different screen sizes, ensuring an optimal experience across devices.
 
 ## Installation
 
