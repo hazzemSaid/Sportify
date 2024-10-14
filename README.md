@@ -6,15 +6,15 @@
 
 ### Onboarding Screens
 
-<img src="assets/images/onboarding.png" alt="Onboarding Screen 1" width="250"/>
+<img src="assets/images/onboarding.png" alt="Onboarding Screen 1" width="400"/>
 
 ### Authentication Screens
 
-<img src="assets/images/login&register.png" alt="Login Screen" width="300"/>
+<img src="assets/images/login&register.png" alt="Login Screen" width="400"/>
 
 ### Home Screen
 
-<img src="assets/images/home.png" alt="Home Screen" width="300"/>
+<img src="assets/images/home.png" alt="Home Screen" width="400"/>
 
 <!-- ### Match Table Screen
 <img src="assets/images/match_table.png" alt="Match Table Screen" width="400"/> -->
