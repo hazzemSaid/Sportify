@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
 import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/buildNewscards.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/news_banner.dart';
-import 'package:sportify/features/Explore_news/presentation/view/widget/news_card.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/title_section_explore.dart';
 import 'package:sportify/features/Explore_news/presentation/view/widget/top_card_news.dart';
 import 'package:sportify/features/Explore_news/presentation/viewmodel/news_cubit.dart';

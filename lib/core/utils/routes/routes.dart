@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/forgotpassword.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/login_screen.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/screens/register_screen.dart';
-import 'package:sportify/features/Detailes_News/presentation/view/screen/detailes_news.dart';
 import 'package:sportify/features/Fav_teams/presentation/view/screens/fav_football_team.dart';
 import 'package:sportify/features/Home/presentation/view/screens/home_screen.dart';
 import 'package:sportify/features/Home/presentation/view/widgets/bottom_nav_bar.dart';

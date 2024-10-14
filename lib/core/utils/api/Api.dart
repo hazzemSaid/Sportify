@@ -72,4 +72,15 @@ class Api {
     print('response: $response');
     return response.data;
   }
+
+  //https://api.football-data.org/v4/matches/?competitions=PL&dateFrom=2024-10-14&dateTo=2024-10-22
+  Future<Map<String, dynamic>> getMatchesbyDate({
+    required String dateFrom,
+    required String dateTo,
+  }) async {
+    _dio.options.headers['X-Auth-Token'] = '5dfbb5c2edc9437585893bf0b74ed63a';
+    var response =
+        await _dio.get('$_baseUrl/matches/?dateFrom=$dateFrom&dateTo=$dateTo');
+    return response.data;
+  }
 }

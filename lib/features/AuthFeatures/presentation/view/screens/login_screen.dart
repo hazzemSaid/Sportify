@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // استيراد shared_preferences
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildPasswordField.dart';
-import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildSocialButton.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildTextField.dart';
 import 'package:sportify/features/AuthFeatures/presentation/viewmodel/auth_bloc/auth_cubit.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/widgets/custom_button.dart';
+
+import '../widgets/buildSocialButton.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

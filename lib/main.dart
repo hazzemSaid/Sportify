@@ -13,6 +13,7 @@ import 'package:sportify/features/Fav_teams/data/repo/favteamrepoimp.dart';
 import 'package:sportify/features/Fav_teams/presentation/viewmodel/favteams_cubit.dart';
 import 'package:sportify/features/Home/presentation/viewmodel/match_day/match_day_cubit.dart';
 import 'package:sportify/features/Home/presentation/viewmodel/standing_cubit/standing_cubit.dart';
+import 'package:sportify/features/MatchTabelDay/presentation/viewmodel/matchbydate_cubit.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
 import 'package:sportify/features/match_Fixtures/data/repo/match_fixtures_impo.dart';
 import 'package:sportify/features/match_Fixtures/data/upcoming/upcoming_cubit.dart';
@@ -21,6 +22,7 @@ import 'package:sportify/firebase_options.dart';
 
 import 'core/utils/api/Api.dart';
 import 'features/Home/data/repo/homerepoImp.dart';
+import 'features/MatchTabelDay/data/repo/matchtabelimpo.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,6 +108,15 @@ class MyApp extends StatelessWidget {
         BlocProvider<FavteamsCubit>(
           create: (context) => FavteamsCubit(
             repo: Favteamrepoimp(
+              api: Api(
+                Dio(),
+              ),
+            ),
+          ),
+        ),
+        BlocProvider<MatchbydateCubit>(
+          create: (context) => MatchbydateCubit(
+            matchtabelimpo: Matchtabelimpo(
               api: Api(
                 Dio(),
               ),

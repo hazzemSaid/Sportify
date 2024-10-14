@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/custom_appbar.dart';
-import 'package:sportify/features/Home/presentation/viewmodel/match_day/match_day_cubit.dart';
+import 'package:sportify/features/MatchTabelDay/presentation/viewmodel/matchbydate_cubit.dart';
 
 class MatchTableScreen extends StatefulWidget {
   @override
@@ -11,21 +12,9 @@ class MatchTableScreen extends StatefulWidget {
 
 class _MatchTableScreenState extends State<MatchTableScreen> {
   String selectedDay = "Today";
+  String date = DateTime.now().toIso8601String().split('T').first;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _fetchMatchesForToday();
-  }
-
-  void _fetchMatchesForToday() {
-    final today = DateTime.now().toIso8601String().split('T').first;
-    BlocProvider.of<MatchDayCubit>(context).getMatchesbyDate(
-      startDate: today,
-      dateTo: today,
-    );
-  }
-
   List<String> _getDaysAndDatesOfWeek() {
     final today = DateTime.now();
     return List.generate(9, (index) {
@@ -86,7 +75,10 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
         itemBuilder: (context, index) {
           String day = _getDaysAndDatesOfWeek()[index];
           return GestureDetector(
-            onTap: () => _onDaySelected(day),
+            onTap: () {
+              print(day);
+              _onDaySelected(day);
+            },
             child: _buildDayChip(day, screenWidth),
           );
         },
@@ -129,6 +121,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
         return Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: TableMatches(
+            date: date,
             leagueName: league['name']!,
             logoLeague: league['logo']!,
           ),
@@ -140,16 +133,35 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
 
 class TableMatches extends StatefulWidget {
   const TableMatches(
-      {super.key, required this.leagueName, required this.logoLeague});
+      {super.key,
+      required this.leagueName,
+      required this.logoLeague,
+      required this.date});
 
   final String leagueName;
   final String logoLeague;
-
+  final String date;
   @override
   State<TableMatches> createState() => _TableMatchesState();
 }
 
 class _TableMatchesState extends State<TableMatches> {
+  @override
+  void initState() {
+    super.initState();
+    print(widget.date);
+    BlocProvider.of<MatchbydateCubit>(context).getMatchesbyDate(
+      dateFrom: widget.date,
+      // i need add 10 days to date
+      dateTo: DateTime.now()
+          .add(Duration(days: 10))
+          .toIso8601String()
+          .split('T')
+          .first,
+    );
+    print(widget.leagueName);
+  }
+
   bool isExpanded = false;
 
   void _toggleExpansion() {
@@ -160,14 +172,34 @@ class _TableMatchesState extends State<TableMatches> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: _toggleExpansion,
-          child: _buildLeagueHeader(),
-        ),
-        if (isExpanded) _buildMatchDetails(),
-      ],
+    return BlocBuilder<MatchbydateCubit, MatchbydateState>(
+      builder: (context, state) {
+        if (state is MatchbydateError) {
+          return const Center(
+            child: Text('An error occurred'),
+          );
+        }
+        if (state is MatchbydateLoaded) {
+          return Column(
+            children: [
+              GestureDetector(
+                onTap: _toggleExpansion,
+                child: _buildLeagueHeader(),
+              ),
+              if (isExpanded)
+                _buildMatchDetails(
+                  Leaguename: widget.leagueName,
+                  matches: state.matches['matches'],
+                ),
+            ],
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.red,
+          ),
+        );
+      },
     );
   }
 
@@ -200,7 +232,12 @@ class _TableMatchesState extends State<TableMatches> {
     );
   }
 
-  Widget _buildMatchDetails() {
+  Widget _buildMatchDetails({
+    required List<dynamic> matches,
+    required String Leaguename,
+  }) {
+    print(Leaguename);
+    print(matches);
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[700],
@@ -211,46 +248,47 @@ class _TableMatchesState extends State<TableMatches> {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: _buildMatchList(),
+        child: _buildMatchList(
+          matches: matches,
+          Leaguename: Leaguename,
+        ),
       ),
     );
   }
 
-  Widget _buildMatchList() {
+  Widget _buildMatchList({
+    required List<dynamic> matches,
+    required String Leaguename,
+  }) {
     // قائمة الفرق
-    final List<Map<String, String>> matches = [
-      {
-        'logoHome': 'assets/images/club_logo2.png',
-        'nameHome': 'Liverpool FC',
-        'logoAway': 'assets/images/club_logo.png',
-        'nameAway': 'Chelsea FC',
-      },
-      {
-        'logoHome': 'assets/images/club_logo3.png',
-        'nameHome': 'Manchester United',
-        'logoAway': 'assets/images/club_logo2.png',
-        'nameAway': 'Arsenal',
-      },
-      // يمكنك إضافة المزيد من المباريات هنا
-    ];
-
-    return Column(
-      children: matches.map((match) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: _buildMatchRow(
-            match['logoHome']!,
-            match['nameHome']!,
-            match['logoAway']!,
-            match['nameAway']!,
-          ),
-        );
-      }).toList(),
-    );
+    if (Leaguename == 'La Liga') {
+      Leaguename = 'Primera Division';
+    }
+    matches = matches
+        .where((element) => element['competition']['name'] == Leaguename)
+        .toList();
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Column(
+          children: List.generate(matches.length, (index) {
+            return _buildMatchRow(
+              logoHome: matches[index]['homeTeam']["crest"] ?? '',
+              nameHome: matches[index]['homeTeam']["name"] ?? '',
+              logoAway: matches[index]['awayTeam']["crest"] ?? '',
+              nameAway: matches[index]['awayTeam']["name"] ?? '',
+            );
+          }),
+        ),
+      )
+    ]);
   }
 
   Widget _buildMatchRow(
-      String logoHome, String nameHome, String logoAway, String nameAway) {
+      {required String logoHome,
+      required String nameHome,
+      required String logoAway,
+      required String nameAway}) {
     return Row(
       children: [
         _buildClubInfo(logoHome, nameHome),
@@ -275,7 +313,7 @@ class _TableMatchesState extends State<TableMatches> {
   Widget _buildClubInfo(String logoPath, String clubName) {
     return Row(
       children: [
-        Image.asset(logoPath, height: 25, width: 25),
+        CachedNetworkImage(imageUrl: logoPath, height: 30, width: 30),
         const SizedBox(width: 5),
         SizedBox(
           width: 90,
