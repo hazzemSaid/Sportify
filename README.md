@@ -29,7 +29,7 @@
 
 ### Favorite Team Screen
 
-<img src="assets/images/FavTeam.png" alt="FavTeam Screen" width="400"/>
+<img src="assets/images/favTeam.png" alt="FavTeam Screen" width="400"/>
 
 ## Features
 
