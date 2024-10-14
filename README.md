@@ -6,30 +6,30 @@
 
 ### Onboarding Screens
 
-<img src="assets/images/onboarding.png" alt="Onboarding Screen 1" width="400"/>
+<img src="assets/images/onboarding.png" alt="Onboarding Screen 1" width="500"/>
 
 ### Authentication Screens
 
-<img src="assets/images/login&register.png" alt="Login Screen" width="400"/>
+<img src="assets/images/login&register.png" alt="Login Screen" width="500"/>
 
 ### Home Screen
 
-<img src="assets/images/home.png" alt="Home Screen" width="400"/>
+<img src="assets/images/home.png" alt="Home Screen" width="500"/>
 
 <!-- ### Match Table Screen
 <img src="assets/images/match_table.png" alt="Match Table Screen" width="400"/> -->
 
 ### Profile Screen
 
-<img src="assets/images/profile.png" alt="Profile Screen" width="400"/>
+<img src="assets/images/profile.png" alt="Profile Screen" width="500"/>
 
 ### Explore Screen
 
-<img src="assets/images/exlore.png" alt="explore Screen" width="400"/>
+<img src="assets/images/exlore.png" alt="explore Screen" width="500"/>
 
 ### Favorite Team Screen
 
-<img src="assets/images/favTeam.png" alt="FavTeam Screen" width="400"/>
+<img src="assets/images/favTeam.png" alt="FavTeam Screen" width="500"/>
 
 ## Features
 
