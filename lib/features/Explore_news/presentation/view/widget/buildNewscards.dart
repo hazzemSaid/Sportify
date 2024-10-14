@@ -10,6 +10,10 @@ Row buildNewsCards({
   String? image2,
   String? subtitle2,
   VoidCallback? onTap2,
+  String? title3,
+  String? image3,
+  String? subtitle3,
+  VoidCallback? onTap3,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -26,6 +30,13 @@ Row buildNewsCards({
         image: image2 ?? 'assets/images/image_news2.png',
         subtitle: subtitle2 ?? 'No Description',
         onTap: onTap2 ?? () {},
+      ),
+      const SizedBox(width: 15),
+      NewsCard(
+        title: title3 ?? 'No Title',
+        image: image3 ?? 'assets/images/image_news2.png',
+        subtitle: subtitle3 ?? 'No Description',
+        onTap: onTap3 ?? () {},
       ),
     ],
   );

@@ -47,35 +47,58 @@ class _ExploreState extends State<Explore> {
                     const SizedBox(height: 25),
                     const TitleSectionExplore(title: 'FIFA WORLD CUP'),
                     const SizedBox(height: 10),
-                    buildNewsCards(
-                      title1: state.news['articles'][3]['title'],
-                      image1: state.news['articles'][3]['urlToImage'],
-                      subtitle1: state.news['articles'][3]['description'],
-                      onTap1: () {
-                        Navigator.push(
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: buildNewsCards(
+                        title1: state.news['articles'][3]['title'],
+                        image1: state.news['articles'][3]['urlToImage'],
+                        subtitle1: state.news['articles'][3]['description'],
+                        onTap1: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DetailesNews(
-                                      imageurl: state.news['articles'][3]
-                                          ['urlToImage'],
-                                      description: state.news['articles'][3]
-                                          ['description'],
-                                    )));
-                      },
-                      title2: state.news['articles'][2]['title'],
-                      image2: state.news['articles'][2]['urlToImage'],
-                      subtitle2: state.news['articles'][2]['description'],
-                      onTap2: () {
-                        Navigator.push(
+                              builder: (context) => DetailesNews(
+                                imageurl: state.news['articles'][3]
+                                    ['urlToImage'],
+                                description: state.news['articles'][3]
+                                    ['description'],
+                              ),
+                            ),
+                          );
+                        },
+                        title2: state.news['articles'][2]['title'],
+                        image2: state.news['articles'][2]['urlToImage'],
+                        subtitle2: state.news['articles'][2]['description'],
+                        onTap2: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DetailesNews(
-                                      imageurl: state.news['articles'][2]
-                                          ['urlToImage'],
-                                      description: state.news['articles'][2]
-                                          ['description'],
-                                    )));
-                      },
+                              builder: (context) => DetailesNews(
+                                imageurl: state.news['articles'][2]
+                                    ['urlToImage'],
+                                description: state.news['articles'][2]
+                                    ['description'],
+                              ),
+                            ),
+                          );
+                        },
+                        title3: state.news['articles'][4]['title'],
+                        image3: state.news['articles'][4]['urlToImage'],
+                        subtitle3: state.news['articles'][4]['description'],
+                        onTap3: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailesNews(
+                                imageurl: state.news['articles'][4]
+                                    ['urlToImage'],
+                                description: state.news['articles'][4]
+                                    ['description'],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     const SizedBox(height: 25),
                     Container(
