@@ -14,7 +14,7 @@
 
 ### Home Screen
 
-<img src="assets/images/home_screen.png" alt="Home Screen" width="300"/>
+<img src="assets/images/home.png" alt="Home Screen" width="300"/>
 
 <!-- ### Match Table Screen
 <img src="assets/images/match_table.png" alt="Match Table Screen" width="400"/> -->
