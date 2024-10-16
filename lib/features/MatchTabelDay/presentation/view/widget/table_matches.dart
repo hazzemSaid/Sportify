@@ -26,8 +26,6 @@ class _TableMatchesState extends State<TableMatches> {
       dateFrom: widget.date,
       dateTo: widget.date,
     );
-
-    print('Fetching matches for date: ${widget.date}');
   }
 
   bool isExpanded = false;

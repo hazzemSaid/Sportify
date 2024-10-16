@@ -48,7 +48,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
       // Adjust the selected date by adding (index - 1) days
       DateTime selectedDate = DateTime.now().add(Duration(days: index - 1));
       date = selectedDate
-          .add(Duration(
+          .add(const Duration(
             days: 1,
           ))
           .toIso8601String()

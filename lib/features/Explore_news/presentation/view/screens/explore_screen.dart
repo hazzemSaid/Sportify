@@ -26,7 +26,7 @@ class _ExploreState extends State<Explore> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff303030),
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -122,9 +122,7 @@ class _ExploreState extends State<Explore> {
                       ),
                     ),
                     NewsBanner(
-                      onTap: () {
-                        //
-                      },
+                      onTap: () {},
                       image:
                           'https://images.unsplash.com/photo-1701363539457-875b9bc9bbc1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGZvb3RiYWxsJTIwbWF0Y2h8ZW58MHx8MHx8fDA%3D',
                     ),
@@ -188,10 +186,19 @@ class _ExploreState extends State<Explore> {
                   ],
                 );
               }
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.red,
-                ),
+              //progress indicator
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.3539,
+                    width: MediaQuery.of(context).size.width * 1,
+                  ),
+                  const CircularProgressIndicator(
+                    color: Colors.red,
+                  ),
+                ],
               );
             },
           ),
