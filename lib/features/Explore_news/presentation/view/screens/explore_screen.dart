@@ -41,7 +41,10 @@ class _ExploreState extends State<Explore> {
                 return Column(
                   children: [
                     const SizedBox(height: 20),
-                    const NewsBanner(),
+                    const NewsBanner(
+                      image:
+                          'https://images.unsplash.com/photo-1519743375942-b497d66b1e8f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                    ),
                     const SizedBox(height: 25),
                     const TitleSectionExplore(title: 'FIFA WORLD CUP'),
                     const SizedBox(height: 10),
@@ -122,6 +125,8 @@ class _ExploreState extends State<Explore> {
                       onTap: () {
                         //
                       },
+                      image:
+                          'https://images.unsplash.com/photo-1701363539457-875b9bc9bbc1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGZvb3RiYWxsJTIwbWF0Y2h8ZW58MHx8MHx8fDA%3D',
                     ),
                     const SizedBox(height: 25),
                     const TitleSectionExplore(title: 'TOP NEWS'),

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class NewsBanner extends StatelessWidget {
-  const NewsBanner({super.key, this.onTap});
-
+  const NewsBanner({super.key, this.onTap, required this.image});
+  final String image;
   final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,10 @@ class NewsBanner extends StatelessWidget {
       child: Container(
         height: 210,
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(
-                'https://images.unsplash.com/photo-1519743375942-b497d66b1e8f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+            image: NetworkImage(image),
           ),
         ),
         child: const Padding(
