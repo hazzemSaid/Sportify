@@ -14,13 +14,12 @@ class MatchbydateCubit extends Cubit<MatchbydateState> {
     required String dateFrom,
     required String dateTo,
   }) async {
+    print(dateFrom);
     emit(MatchbydateLoading());
 
     final response = await matchtabelimpo.getMatchTabelDay(
         dateFrom: dateFrom, dateTo: dateTo);
-    if (response.isRight) {
-      print(response.right);
-    }
+    print(response.right);
     response.fold((failure) => emit(MatchbydateError(message: failure.message)),
         (matches) async => emit(MatchbydateLoaded(matches: await matches)));
   }

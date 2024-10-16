@@ -41,6 +41,23 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
   void _onDaySelected(String day) {
     setState(() {
       selectedDay = day;
+
+      // Find the index of the day selected from the list
+      int index = _getDaysAndDatesOfWeek().indexOf(day);
+
+      // Adjust the selected date by adding (index - 1) days
+      DateTime selectedDate = DateTime.now().add(Duration(days: index - 1));
+      date = selectedDate
+          .add(Duration(
+            days: 1,
+          ))
+          .toIso8601String()
+          .split('T')
+          .first;
+      BlocProvider.of<MatchbydateCubit>(context).getMatchesbyDate(
+        dateFrom: selectedDate.toIso8601String().split('T').first,
+        dateTo: date,
+      );
     });
   }
 
@@ -77,6 +94,13 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
           return GestureDetector(
             onTap: () {
               print(day);
+              setState(() {
+                date = DateTime.now()
+                    .add(Duration(days: index - 1))
+                    .toIso8601String()
+                    .split('T')
+                    .first;
+              });
               _onDaySelected(day);
             },
             child: _buildDayChip(day, screenWidth),
@@ -149,17 +173,15 @@ class _TableMatchesState extends State<TableMatches> {
   @override
   void initState() {
     super.initState();
-    print(widget.date);
+
+    // Use the selected date only without adding extra days
     BlocProvider.of<MatchbydateCubit>(context).getMatchesbyDate(
-      dateFrom: widget.date,
-      // i need add 10 days to date
-      dateTo: DateTime.now()
-          .add(Duration(days: 10))
-          .toIso8601String()
-          .split('T')
-          .first,
+      dateFrom: widget
+          .date, // Use the selected date (dateFrom and dateTo are the same)
+      dateTo: widget.date, // No additional days added
     );
-    print(widget.leagueName);
+
+    print('Fetching matches for date: ${widget.date}');
   }
 
   bool isExpanded = false;
@@ -260,7 +282,6 @@ class _TableMatchesState extends State<TableMatches> {
     required List<dynamic> matches,
     required String Leaguename,
   }) {
-    // قائمة الفرق
     if (Leaguename == 'La Liga') {
       Leaguename = 'Primera Division';
     }
@@ -273,6 +294,13 @@ class _TableMatchesState extends State<TableMatches> {
         child: Column(
           children: List.generate(matches.length, (index) {
             return _buildMatchRow(
+              matchTime: matches[index]['utcDate']
+                  .toString()
+                  .split('T')
+                  .last
+                  .split('.')
+                  .first
+                  .substring(0, 5),
               logoHome: matches[index]['homeTeam']["crest"] ?? '',
               nameHome: matches[index]['homeTeam']["name"] ?? '',
               logoAway: matches[index]['awayTeam']["crest"] ?? '',
@@ -284,26 +312,29 @@ class _TableMatchesState extends State<TableMatches> {
     ]);
   }
 
-  Widget _buildMatchRow(
-      {required String logoHome,
-      required String nameHome,
-      required String logoAway,
-      required String nameAway}) {
+  Widget _buildMatchRow({
+    required String logoHome,
+    required String nameHome,
+    required String logoAway,
+    required String nameAway,
+    required String matchTime,
+  }) {
     return Row(
       children: [
         _buildClubInfo(logoHome, nameHome),
         const Spacer(flex: 1),
         Container(
-            width: 50,
-            height: 25,
-            decoration: BoxDecoration(
-              color: Colors.grey[800],
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: const Center(
-              child: Text('15:00',
-                  style: TextStyle(color: Colors.white, fontSize: 16)),
-            )),
+          width: 50,
+          height: 25,
+          decoration: BoxDecoration(
+            color: Colors.grey[800],
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Center(
+            child: Text(matchTime,
+                style: TextStyle(color: Colors.white, fontSize: 16)),
+          ),
+        ),
         const Spacer(flex: 1),
         _buildClubInfo(logoAway, nameAway),
       ],
