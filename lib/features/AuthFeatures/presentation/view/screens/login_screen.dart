@@ -51,10 +51,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SginInLoading) {
-          Get.snackbar('Loading', 'Please wait...',
-              snackPosition: SnackPosition.TOP,
-              backgroundColor: Colors.blue,
-              colorText: Colors.white);
+          //start the loading indicator but is to slow
+          Get.dialog(
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         } else if (state is SginInSuccess) {
           Get.snackbar('Login Successful', 'Welcome back',
               snackPosition: SnackPosition.TOP,
