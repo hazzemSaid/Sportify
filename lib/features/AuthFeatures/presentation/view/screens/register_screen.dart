@@ -116,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 false, // Prevent the dialog from closing by tapping outside
           );
         } else if (state is SginUpFailed) {
-          Get.snackbar('Error', state.error ?? 'An error occurred',
+          Get.snackbar('Error', state.error ?? 'Create a 6 character password',
               snackPosition: SnackPosition.TOP,
               backgroundColor: Colors.red,
               colorText: Colors.white);
