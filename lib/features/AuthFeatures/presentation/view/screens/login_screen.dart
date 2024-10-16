@@ -51,6 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SginInLoading) {
+          Get.snackbar('Loading', 'Please wait...',
+              snackPosition: SnackPosition.TOP,
+              backgroundColor: Colors.blue,
+              colorText: Colors.white);
         } else if (state is SginInSuccess) {
           Get.snackbar('Login Successful', 'Welcome back',
               snackPosition: SnackPosition.TOP,
@@ -61,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
           Navigator.pushNamed(context, AppRoutes.bottomNavBar);
         } else if (state is SginInFailed) {
+          //stop the loading indicator
+          //  Get.back();
           Get.snackbar('Error', state.error ?? 'An error occurred',
               snackPosition: SnackPosition.TOP,
               backgroundColor: Colors.red,

@@ -116,6 +116,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 false, // Prevent the dialog from closing by tapping outside
           );
         } else if (state is SginUpFailed) {
+          // Close the loading dialog
+          Get.back();
           Get.snackbar('Error', state.error ?? 'Create a 6 character password',
               snackPosition: SnackPosition.TOP,
               backgroundColor: Colors.red,
@@ -212,8 +214,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomButton(
                           onPressed: () {
                             if (_formRegisterKey.currentState!.validate()) {
-                              print(email.text);
-                              print(password.text);
                               BlocProvider.of<AuthCubit>(context)
                                   .signUpWithEmail(
                                 emailAddress: email.text,
