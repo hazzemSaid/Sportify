@@ -42,7 +42,7 @@ class _TableMatchesState extends State<TableMatches> {
       builder: (context, state) {
         if (state is MatchbydateError) {
           return const Center(
-            child: Text('An error occurred'),
+            child: Text('No matches found'),
           );
         }
         if (state is MatchbydateLoaded) {
@@ -96,6 +96,20 @@ class _TableMatchesState extends State<TableMatches> {
               style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
             const Spacer(),
+            Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                color: Colors.grey[800],
+              ),
+              child: const Center(
+                child: Text(
+                  '1',
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+            ),
             const Icon(Icons.keyboard_arrow_down_outlined, color: Colors.white),
           ],
         ),
