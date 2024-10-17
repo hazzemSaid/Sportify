@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-Widget buildSocialButton(IconData icon, VoidCallback onTap) {
+Widget buildSocialButton(String image, VoidCallback onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 65,
-      width: 65,
+      height: 55,
+      width: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: const Color(0xff353535),
         border: Border.all(width: 0.3),
       ),
-      child: Icon(icon, size: 35, color: Colors.blue[800]),
+      child: SvgPicture.asset(
+        image,
+      ),
     ),
   );
 }

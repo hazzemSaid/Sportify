@@ -253,11 +253,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            buildSocialButton(FontAwesomeIcons.google, () {
+                            buildSocialButton('assets/icons/google.svg', () {
                               // Implement Google login
                             }),
                             const SizedBox(width: 30),
-                            buildSocialButton(Icons.facebook, () {
+                            buildSocialButton('assets/icons/facebook.svg', () {
                               // Implement Facebook login
                             }),
                           ],
