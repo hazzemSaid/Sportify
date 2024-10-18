@@ -118,7 +118,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         } else if (state is SginUpFailed) {
           // Close the loading dialog
           Get.back();
-          Get.snackbar('Error', state.error ?? 'Create a 6 character password',
+          Get.snackbar(
+              'Incorrect', state.error ?? 'Create a 6 character password',
               snackPosition: SnackPosition.TOP,
               backgroundColor: Colors.red,
               colorText: Colors.white);

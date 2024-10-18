@@ -15,10 +15,10 @@ class _LeaguesTablesState extends State<LeaguesTables> {
   Widget build(BuildContext context) {
     const leagues = [
       {'name': 'Premier League', 'logo': 'assets/images/premier-league.png'},
-      {'name': 'La Liga League', 'logo': 'assets/images/la_liga.png'},
-      {'name': 'Bundesliga League', 'logo': 'assets/images/bundesliga.png'},
-      {'name': 'Serie A League', 'logo': 'assets/images/serie_a.png'},
-      {'name': 'Ligue 1 League', 'logo': 'assets/images/ligue_1.png'},
+      {'name': 'La Liga', 'logo': 'assets/images/la_liga.png'},
+      {'name': 'Bundesliga', 'logo': 'assets/images/bundesliga.png'},
+      {'name': 'Serie A', 'logo': 'assets/images/serie_a.png'},
+      {'name': 'Ligue 1', 'logo': 'assets/images/ligue_1.png'},
     ];
 
     return Column(

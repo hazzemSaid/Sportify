@@ -69,7 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is SginInFailed) {
           //stop the loading indicator
           //  Get.back();
-          Get.snackbar('Error', state.error ?? 'An error occurred',
+          Get.snackbar(
+              'Incorrect', state.error ?? 'Incorrect email or password',
               snackPosition: SnackPosition.TOP,
               backgroundColor: Colors.red,
               colorText: Colors.white);
