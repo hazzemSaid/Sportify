@@ -6,7 +6,6 @@ part 'matchbydate_state.dart';
 
 class MatchbydateCubit extends Cubit<MatchbydateState> {
   final Matchtabelimpo matchtabelimpo;
-
   MatchbydateCubit({required this.matchtabelimpo})
       : super(MatchbydateInitial());
 
@@ -14,6 +13,7 @@ class MatchbydateCubit extends Cubit<MatchbydateState> {
     required String dateFrom,
     required String dateTo,
   }) async {
+    print("in cubit");
     print(dateFrom);
     emit(MatchbydateLoading());
 

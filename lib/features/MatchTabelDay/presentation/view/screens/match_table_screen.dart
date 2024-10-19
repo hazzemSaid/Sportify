@@ -25,10 +25,12 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
 
   void initState() {
     super.initState();
+    print('initState');
+    print(DateTime.now().toIso8601String().split('T').first);
     BlocProvider.of<MatchbydateCubit>(context).getMatchesbyDate(
       dateFrom: DateTime.now().toIso8601String().split('T').first,
       dateTo: DateTime.now()
-          .add(const Duration(days: 1))
+          .add(Duration(days: 1))
           .toIso8601String()
           .split('T')
           .first,
@@ -50,6 +52,7 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
     }
   }
 
+  @override
   void _onDaySelected(String day) {
     setState(() {
       selectedDay = day;
@@ -103,13 +106,8 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
           String day = _getDaysAndDatesOfWeek()[index];
           return GestureDetector(
             onTap: () {
-              print(day);
               setState(() {
-                date = DateTime.now()
-                    .add(Duration(days: index - 1))
-                    .toIso8601String()
-                    .split('T')
-                    .first;
+                selectedDay = day;
               });
               _onDaySelected(day);
             },

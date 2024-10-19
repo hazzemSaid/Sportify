@@ -18,16 +18,6 @@ class TableMatches extends StatefulWidget {
 }
 
 class _TableMatchesState extends State<TableMatches> {
-  @override
-  void initState() {
-    super.initState();
-
-    BlocProvider.of<MatchbydateCubit>(context).getMatchesbyDate(
-      dateFrom: widget.date,
-      dateTo: widget.date,
-    );
-  }
-
   bool isExpanded = false;
 
   void _toggleExpansion() {
@@ -41,8 +31,8 @@ class _TableMatchesState extends State<TableMatches> {
     return BlocBuilder<MatchbydateCubit, MatchbydateState>(
       builder: (context, state) {
         if (state is MatchbydateError) {
-          return const Center(
-            child: Text('No matches found'),
+          return Center(
+            child: Text('${state.message}'),
           );
         }
         if (state is MatchbydateLoaded) {
