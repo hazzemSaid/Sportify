@@ -67,8 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
           Navigator.pushNamed(context, AppRoutes.bottomNavBar);
         } else if (state is SginInFailed) {
-          //stop the loading indicator
-          //  Get.back();
+          //show the error message
+          Get.back();
           Get.snackbar(
               'Incorrect', state.error ?? 'Incorrect email or password',
               snackPosition: SnackPosition.TOP,
