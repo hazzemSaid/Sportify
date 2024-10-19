@@ -23,6 +23,18 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
     });
   }
 
+  void initState() {
+    super.initState();
+    BlocProvider.of<MatchbydateCubit>(context).getMatchesbyDate(
+      dateFrom: DateTime.now().toIso8601String().split('T').first,
+      dateTo: DateTime.now()
+          .add(const Duration(days: 1))
+          .toIso8601String()
+          .split('T')
+          .first,
+    );
+  }
+
   String _formatDay(DateTime day, int offset) {
     String formattedDay = DateFormat('EEE').format(day);
     String formattedMonth = DateFormat('MMM').format(day);
@@ -47,16 +59,14 @@ class _MatchTableScreenState extends State<MatchTableScreen> {
 
       // Adjust the selected date by adding (index - 1) days
       DateTime selectedDate = DateTime.now().add(Duration(days: index - 1));
-      date = selectedDate
-          .add(const Duration(
-            days: 1,
-          ))
-          .toIso8601String()
-          .split('T')
-          .first;
+
       BlocProvider.of<MatchbydateCubit>(context).getMatchesbyDate(
         dateFrom: selectedDate.toIso8601String().split('T').first,
-        dateTo: date,
+        dateTo: selectedDate
+            .add(Duration(days: 1))
+            .toIso8601String()
+            .split('T')
+            .first,
       );
     });
   }

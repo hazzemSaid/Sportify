@@ -22,7 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     BlocProvider.of<MatchDayCubit>(context).getMatchesbyDate(
       startDate: DateTime.now().toIso8601String().split('T').first,
-      dateTo: DateTime.now().toIso8601String().split('T').first,
+      dateTo: DateTime.now()
+          .add(const Duration(days: 1))
+          .toIso8601String()
+          .split('T')
+          .first,
     );
   }
 
