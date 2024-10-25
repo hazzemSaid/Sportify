@@ -30,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is SginUpLoading) {
           Get.dialog(
             const Center(
@@ -40,6 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             barrierDismissible: false,
           );
+          await Future.delayed(const Duration(seconds: 1));
         } else if (state is SginUpSuccess) {
           Get.dialog(
             AlertDialog(
@@ -263,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }),
                           ],
                         ),
-                        const SizedBox(height: 25),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.14,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

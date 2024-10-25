@@ -49,14 +49,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is SginInLoading) {
           //start the loading indicator but is to slow
           Get.dialog(
             const Center(
               child: CircularProgressIndicator(),
             ),
+            barrierDismissible: false,
           );
+          await Future.delayed(const Duration(seconds: 1));
         } else if (state is SginInSuccess) {
           Get.snackbar('Login Successful', 'Welcome back',
               snackPosition: SnackPosition.TOP,
@@ -192,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.16,
+                          height: MediaQuery.of(context).size.height * 0.23,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
