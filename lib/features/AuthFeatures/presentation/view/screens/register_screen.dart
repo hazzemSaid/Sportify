@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportify/core/utils/routes/routes.dart';
 import 'package:sportify/features/AuthFeatures/presentation/view/widgets/buildPasswordField.dart';
@@ -252,19 +254,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
                         const SizedBox(height: 25),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            buildSocialButton('assets/icons/google.svg', () {
-                              // Implement Google login
-                            }),
-                            const SizedBox(width: 30),
-                            buildSocialButton('assets/icons/facebook.svg', () {
-                              // Implement Facebook login
-                            }),
-                          ],
+                        buildSocialButton(
+                          'assets/icons/google.svg',
+                          () async {
+                            try {
+                              // Trigger the authentication flow
+                              final GoogleSignInAccount? googleUser =
+                                  await GoogleSignIn().signIn();
+                              // Check if the user canceled the sign-in
+                              if (googleUser == null) {
+                                // The user canceled the sign-in, so we stop here
+                                return;
+                              }
+                              // Obtain the auth details from the request
+                              final GoogleSignInAuthentication googleAuth =
+                                  await googleUser.authentication;
+                              // Create a new credential
+                              final AuthCredential credential =
+                                  GoogleAuthProvider.credential(
+                                accessToken: googleAuth.accessToken,
+                                idToken: googleAuth.idToken,
+                              );
+                              // Once signed in, sign in to Firebase with this credential
+                              final UserCredential userCredential =
+                                  await FirebaseAuth.instance
+                                      .signInWithCredential(credential);
+                              // Navigate to HomePage
+                              Navigator.pushReplacementNamed(
+                                  context, AppRoutes.bottomNavBar);
+                            } catch (e) {
+                              // Handle sign-in errors
+                              print(e);
+                            }
+                          },
+                          'Sign in with Google',
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.14,),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.14,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
