@@ -31,22 +31,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
               fontStyle: FontStyle.italic,
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.search, color: Colors.white),
-                onPressed: () {
-                  // Action for search icon
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.notifications, color: Colors.white),
-                onPressed: () {
-                  // Action for notifications icon
-                },
-              ),
-            ],
-          ),
         ],
       ),
     );

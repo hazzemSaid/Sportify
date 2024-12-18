@@ -7,6 +7,7 @@ import 'package:sportify/features/Home/presentation/view/screens/home_screen.dar
 import 'package:sportify/features/Home/presentation/view/widgets/bottom_nav_bar.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/onboarding.dart';
 import 'package:sportify/features/Onbording_Feature/Presentation/view/screens/splash_screen.dart';
+import 'package:sportify/features/Profile/presentation/view/screens/coming_soon_screen.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -18,6 +19,7 @@ class AppRoutes {
   static const String favfootballteam = '/favfootballteam';
   static const String matchesTeam = '/matchesTeam';
   static const String forgotPassword = '/forgotPassword';
+  static const String comingSoonScreen = '/comingSoonScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -37,6 +39,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const FavFootballTeam());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForGotPassword());
+      case comingSoonScreen:
+        return MaterialPageRoute(builder: (_) => const ComingSoonScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

@@ -172,21 +172,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 15),
                   CustomRow(
                     title: 'Privacy',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.comingSoonScreen);
+                    },
                     icon: Icons.arrow_forward_ios,
                     color: const Color(0xffADABAB),
                   ),
                   const SizedBox(height: 5),
                   CustomRow(
                     title: 'Customer Support',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.comingSoonScreen);
+                    },
                     icon: Icons.arrow_forward_ios,
                     color: const Color(0xffADABAB),
                   ),
                   const SizedBox(height: 5),
                   CustomRow(
                     title: 'App info',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.comingSoonScreen);
+                    },
                     icon: Icons.arrow_forward_ios,
                     color: const Color(0xffADABAB),
                   ),
